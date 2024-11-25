@@ -1,0 +1,273 @@
+name,value,units,description
+Vp,3126.0,mL,Total plasma volume
+Vbc,2558.0,mL,Total blood cell volume
+Vlymphnode,274.0,mL,Lymph node volume
+Vp_lung,1000.0,mL,Lung plasma volume
+VBC_lung,55.0,mL,Lung blood cell volume
+VIS_lung,45.0,mL,Lung ISF volume
+VES_lung,5.0,mL,Lung endosomal volume
+Vp_brain,31.9,mL,Brain plasma volume
+VIS_brain,261.0,mL,Brain ISF volume
+VBBB_brain,0.1,mL,BBB endosomal volume
+VBC_brain,26.1,mL,Brain blood cell volume
+V_ES_brain,7.25,mL,Brain endosomal volume
+V_BCSFB_brain,0.1,mL,BCSFB endosomal volume
+V_LV_brain,22.5,mL,Lateral ventricle volume
+V_TFV_brain,22.5,mL,Third/Fourth ventricle volume
+V_CM_brain,7.5,mL,Cisterna magna volume
+V_SAS_brain,90.0,mL,Subarachnoid space volume
+Vp_liver,2143.0,mL,Liver plasma volume
+VBC_liver,183.0,mL,Liver blood cell volume
+VIS_liver,149.0,mL,Liver ISF volume
+VES_liver,10.7,mL,Liver endosomal volume
+Vp_heart,341.0,mL,Heart plasma volume
+VBC_heart,13.1,mL,Heart blood cell volume
+VIS_heart,10.8,mL,Heart ISF volume
+VES_heart,1.71,mL,Heart endosomal volume
+Vp_kidney,332.0,mL,Kidney plasma volume
+VBC_kidney,18.2,mL,Kidney blood cell volume
+VIS_kidney,14.9,mL,Kidney ISF volume
+VES_kidney,1.66,mL,Kidney endosomal volume
+Vp_muscle,30078.0,mL,Muscle plasma volume
+VBC_muscle,662.0,mL,Muscle blood cell volume
+VIS_muscle,541.0,mL,Muscle ISF volume
+VES_muscle,150.0,mL,Muscle endosomal volume
+Vp_skin,3408.0,mL,Skin plasma volume
+VBC_skin,127.0,mL,Skin blood cell volume
+VIS_skin,104.0,mL,Skin ISF volume
+VES_skin,17.0,mL,Skin endosomal volume
+Vp_fat,13465.0,mL,Fat plasma volume
+VBC_fat,148.0,mL,Fat blood cell volume
+VIS_fat,121.0,mL,Fat ISF volume
+VES_fat,67.3,mL,Fat endosomal volume
+Vp_marrow,10165.0,mL,Bone marrow plasma volume
+VBC_marrow,224.0,mL,Bone marrow blood cell volume
+VIS_marrow,183.0,mL,Bone marrow ISF volume
+VES_marrow,50.8,mL,Bone marrow endosomal volume
+Vp_thymus,6.41,mL,Thymus plasma volume
+VBC_thymus,0.353,mL,Thymus blood cell volume
+VIS_thymus,0.288,mL,Thymus ISF volume
+VES_thymus,0.0321,mL,Thymus endosomal volume
+Vp_SI,385.0,mL,Small intestine plasma volume
+VBC_SI,6.15,mL,Small intestine blood cell volume
+VIS_SI,5.03,mL,Small intestine ISF volume
+VES_SI,1.93,mL,Small intestine endosomal volume
+Vp_LI,548.0,mL,Large intestine plasma volume
+VBC_LI,8.74,mL,Large intestine blood cell volume
+VIS_LI,7.15,mL,Large intestine ISF volume
+VES_LI,2.74,mL,Large intestine endosomal volume
+Vp_spleen,221.0,mL,Spleen plasma volume
+VBC_spleen,26.8,mL,Spleen blood cell volume
+VIS_spleen,21.9,mL,Spleen ISF volume
+VES_spleen,1.11,mL,Spleen endosomal volume
+Vp_pancreas,104.0,mL,Pancreas plasma volume
+VBC_pancreas,5.7,mL,Pancreas blood cell volume
+VIS_pancreas,4.66,mL,Pancreas ISF volume
+VES_pancreas,0.518,mL,Pancreas endosomal volume
+Vp_other,4852.0,mL,Other plasma volume
+VBC_other,204.0,mL,Other blood cell volume
+VIS_other,167.0,mL,Other ISF volume
+VES_other,24.3,mL,Other endosomal volume
+Q_p_lung,181913.0,mL/h,Lung plasma flow rate
+Q_p_brain,36402.0,mL/h,Brain plasma flow rate
+Q_p_heart,7752.0,mL/h,Heart plasma flow rate
+Q_p_liver,13210.0,mL/h,Liver plasma flow rate
+Q_p_kidney,32402.0,mL/h,Kidney plasma flow rate
+Q_p_muscle,33469.0,mL/h,Muscle plasma flow rate
+Q_p_skin,11626.0,mL/h,Skin plasma flow rate
+Q_p_fat,8343.0,mL/h,Fat plasma flow rate
+Q_p_marrow,2591.0,mL/h,Bone marrow plasma flow rate
+Q_p_thymus,353.0,mL/h,Thymus plasma flow rate
+Q_p_SI,12368.0,mL/h,Small intestine plasma flow rate
+Q_p_LI,12867.0,mL/h,Large intestine plasma flow rate
+Q_p_spleen,6343.0,mL/h,Spleen plasma flow rate
+Q_p_pancreas,3056.0,mL/h,Pancreas plasma flow rate
+Q_p_other,5521.0,mL/h,Other organs plasma flow rate
+Q_bc_lung,148920.0,mL/h,Lung blood cell flow rate
+Q_bc_brain,29810.0,mL/h,Brain blood cell flow rate
+Q_bc_heart,6350.0,mL/h,Heart blood cell flow rate
+Q_bc_liver,10820.0,mL/h,Liver blood cell flow rate
+Q_bc_kidney,26530.0,mL/h,Kidney blood cell flow rate
+Q_bc_muscle,27410.0,mL/h,Muscle blood cell flow rate
+Q_bc_skin,9520.0,mL/h,Skin blood cell flow rate
+Q_bc_fat,6830.0,mL/h,Fat blood cell flow rate
+Q_bc_marrow,2120.0,mL/h,Bone marrow blood cell flow rate
+Q_bc_thymus,289.0,mL/h,Thymus blood cell flow rate
+Q_bc_SI,10130.0,mL/h,Small intestine blood cell flow rate
+Q_bc_LI,10530.0,mL/h,Large intestine blood cell flow rate
+Q_bc_spleen,5190.0,mL/h,Spleen blood cell flow rate
+Q_bc_pancreas,2500.0,mL/h,Pancreas blood cell flow rate
+Q_bc_other,4520.0,mL/h,Other organs blood cell flow rate
+Q_CSF_brain,21.0,mL/h,CSF flow rate
+Q_ISF_brain,10.5,mL/h,Brain ISF flow rate
+L_lung,364.0,mL/h,Lung lymph flow rate
+L_brain,73.0,mL/h,Brain lymph flow rate
+L_heart,16.0,mL/h,Heart lymph flow rate
+L_liver,26.0,mL/h,Liver lymph flow rate
+L_kidney,65.0,mL/h,Kidney lymph flow rate
+L_muscle,67.0,mL/h,Muscle lymph flow rate
+L_skin,23.0,mL/h,Skin lymph flow rate
+L_fat,17.0,mL/h,Fat lymph flow rate
+L_marrow,5.0,mL/h,Bone marrow lymph flow rate
+L_thymus,1.0,mL/h,Thymus lymph flow rate
+L_SI,25.0,mL/h,Small intestine lymph flow rate
+L_LI,26.0,mL/h,Large intestine lymph flow rate
+L_spleen,13.0,mL/h,Spleen lymph flow rate
+L_pancreas,6.0,mL/h,Pancreas lymph flow rate
+L_other,11.0,mL/h,Other organs lymph flow rate
+L_LN,500.0,mL/h,Lymph node flow rate
+kon_FcRn,559000000.0,1/M/h,FcRn binding rate constant
+koff_FcRn,23.9,1/h,FcRn unbinding rate constant
+kdeg,26.6,1/h,Degradation rate constant
+CLup_lung,0.55,L/h/L,Lung uptake clearance
+CLup_brain,0.3,L/h/L,Brain uptake clearance
+CLup_heart,0.55,L/h/L,Heart uptake clearance
+CLup_liver,0.55,L/h/L,Liver uptake clearance
+CLup_kidney,0.55,L/h/L,Kidney uptake clearance
+CLup_muscle,0.55,L/h/L,Muscle uptake clearance
+CLup_skin,0.55,L/h/L,Skin uptake clearance
+CLup_fat,0.55,L/h/L,Fat uptake clearance
+CLup_marrow,0.55,L/h/L,Bone marrow uptake clearance
+CLup_thymus,0.55,L/h/L,Thymus uptake clearance
+CLup_SI,0.55,L/h/L,Small intestine uptake clearance
+CLup_LI,0.55,L/h/L,Large intestine uptake clearance
+CLup_spleen,0.55,L/h/L,Spleen uptake clearance
+CLup_pancreas,0.55,L/h/L,Pancreas uptake clearance
+CLup_other,0.55,L/h/L,Other organs uptake clearance
+sigma_V_lung,0.95,dimensionless,Lung vascular reflection coefficient
+sigma_V_brain,0.95,dimensionless,Brain vascular reflection coefficient
+sigma_V_heart,0.95,dimensionless,Heart vascular reflection coefficient
+sigma_V_liver,0.95,dimensionless,Liver vascular reflection coefficient
+sigma_V_kidney,0.9,dimensionless,Kidney vascular reflection coefficient
+sigma_V_muscle,0.95,dimensionless,Muscle vascular reflection coefficient
+sigma_V_skin,0.95,dimensionless,Skin vascular reflection coefficient
+sigma_V_fat,0.95,dimensionless,Fat vascular reflection coefficient
+sigma_V_marrow,0.95,dimensionless,Bone marrow vascular reflection coefficient
+sigma_V_thymus,0.9,dimensionless,Thymus vascular reflection coefficient
+sigma_V_SI,0.9,dimensionless,Small intestine vascular reflection coefficient
+sigma_V_LI,0.95,dimensionless,Large intestine vascular reflection coefficient
+sigma_V_spleen,0.85,dimensionless,Spleen vascular reflection coefficient
+sigma_V_pancreas,0.9,dimensionless,Pancreas vascular reflection coefficient
+sigma_V_other,0.95,dimensionless,Other organs vascular reflection coefficient
+sigma_V_BCSFB,0.9974,dimensionless,BCSFB vascular reflection coefficient
+sigma_V_BBB,0.95,dimensionless,BBB vascular reflection coefficient
+sigma_L_lung,0.2,dimensionless,Lung lymphatic reflection coefficient
+sigma_L_brain,0.2,dimensionless,Brain lymphatic reflection coefficient
+sigma_L_heart,0.2,dimensionless,Heart lymphatic reflection coefficient
+sigma_L_liver,0.2,dimensionless,Liver lymphatic reflection coefficient
+sigma_L_kidney,0.2,dimensionless,Kidney lymphatic reflection coefficient
+sigma_L_muscle,0.2,dimensionless,Muscle lymphatic reflection coefficient
+sigma_L_skin,0.2,dimensionless,Skin lymphatic reflection coefficient
+sigma_L_fat,0.2,dimensionless,Fat lymphatic reflection coefficient
+sigma_L_marrow,0.2,dimensionless,Bone marrow lymphatic reflection coefficient
+sigma_L_thymus,0.2,dimensionless,Thymus lymphatic reflection coefficient
+sigma_L_SI,0.2,dimensionless,Small intestine lymphatic reflection coefficient
+sigma_L_LI,0.2,dimensionless,Large intestine lymphatic reflection coefficient
+sigma_L_spleen,0.2,dimensionless,Spleen lymphatic reflection coefficient
+sigma_L_pancreas,0.2,dimensionless,Pancreas lymphatic reflection coefficient
+sigma_L_brain_ISF,0.2,dimensionless,Brain ISF lymphatic reflection coefficient
+sigma_L_SAS,0.2,dimensionless,Subarachnoid space lymphatic reflection coefficient
+sigma_L_other,0.2,dimensionless,Other organs lymphatic reflection coefficient
+FR,0.715,dimensionless,Recycling fraction
+f_BBB,0.95,dimensionless,BBB permeability
+f_LV,0.2,dimensionless,Lateral ventricle flow fraction
+FcRn_free_BBB,1.0,dimensionless,Initial BBB FcRn free concentration
+FcRn_free_BCSFB,1.0,dimensionless,Initial BCSFB FcRn free concentration
+C_p_0,4.516314779270633,nM/mL,Initial plasma concentration (C_p_0)
+C_bc_0,0.0,nM/mL,Initial blood cell concentration (C_bc_0)
+C_ln_0,0.0,nM/mL,Initial lymph node concentration (C_ln_0)
+C_p_lung_0,0.0,nM/mL,Initial lung plasma concentration (C_p_lung_0)
+C_p_brain_0,0.0,nM/mL,Initial brain plasma concentration (C_p_brain_0)
+C_p_heart_0,0.0,nM/mL,Initial heart plasma concentration (C_p_heart_0)
+C_p_liver_0,0.0,nM/mL,Initial liver plasma concentration (C_p_liver_0)
+C_p_kidney_0,0.0,nM/mL,Initial kidney plasma concentration (C_p_kidney_0)
+C_p_muscle_0,0.0,nM/mL,Initial muscle plasma concentration (C_p_muscle_0)
+C_p_skin_0,0.0,nM/mL,Initial skin plasma concentration (C_p_skin_0)
+C_p_fat_0,0.0,nM/mL,Initial fat plasma concentration (C_p_fat_0)
+C_p_marrow_0,0.0,nM/mL,Initial bone marrow plasma concentration (C_p_marrow_0)
+C_p_thymus_0,0.0,nM/mL,Initial thymus plasma concentration (C_p_thymus_0)
+C_p_SI_0,0.0,nM/mL,Initial SI plasma concentration (C_p_SI_0)
+C_p_LI_0,0.0,nM/mL,Initial LI plasma concentration (C_p_LI_0)
+C_p_spleen_0,0.0,nM/mL,Initial spleen plasma concentration (C_p_spleen_0)
+C_p_pancreas_0,0.0,nM/mL,Initial pancreas plasma concentration (C_p_pancreas_0)
+C_p_other_0,0.0,nM/mL,Initial other plasma concentration (C_p_other_0)
+C_bc_lung_0,0.0,nM/mL,Initial lung blood cell concentration (C_bc_lung_0)
+C_bc_brain_0,0.0,nM/mL,Initial brain blood cell concentration (C_bc_brain_0)
+C_bc_heart_0,0.0,nM/mL,Initial heart blood cell concentration (C_bc_heart_0)
+C_bc_liver_0,0.0,nM/mL,Initial liver blood cell concentration (C_bc_liver_0)
+C_bc_kidney_0,0.0,nM/mL,Initial kidney blood cell concentration (C_bc_kidney_0)
+C_bc_muscle_0,0.0,nM/mL,Initial muscle blood cell concentration (C_bc_muscle_0)
+C_bc_skin_0,0.0,nM/mL,Initial skin blood cell concentration (C_bc_skin_0)
+C_bc_fat_0,0.0,nM/mL,Initial fat blood cell concentration (C_bc_fat_0)
+C_bc_marrow_0,0.0,nM/mL,Initial bone marrow blood cell concentration (C_bc_marrow_0)
+C_bc_thymus_0,0.0,nM/mL,Initial thymus blood cell concentration (C_bc_thymus_0)
+C_bc_SI_0,0.0,nM/mL,Initial SI blood cell concentration (C_bc_SI_0)
+C_bc_LI_0,0.0,nM/mL,Initial LI blood cell concentration (C_bc_LI_0)
+C_bc_spleen_0,0.0,nM/mL,Initial spleen blood cell concentration (C_bc_spleen_0)
+C_bc_pancreas_0,0.0,nM/mL,Initial pancreas blood cell concentration (C_bc_pancreas_0)
+C_bc_other_0,0.0,nM/mL,Initial other blood cell concentration (C_bc_other_0)
+C_is_lung_0,0.0,nM/mL,Initial lung ISF concentration (C_is_lung_0)
+C_is_brain_0,0.0,nM/mL,Initial brain ISF concentration (C_is_brain_0)
+C_is_heart_0,0.0,nM/mL,Initial heart ISF concentration (C_is_heart_0)
+C_is_liver_0,0.0,nM/mL,Initial liver ISF concentration (C_is_liver_0)
+C_is_kidney_0,0.0,nM/mL,Initial kidney ISF concentration (C_is_kidney_0)
+C_is_muscle_0,0.0,nM/mL,Initial muscle ISF concentration (C_is_muscle_0)
+C_is_skin_0,0.0,nM/mL,Initial skin ISF concentration (C_is_skin_0)
+C_is_fat_0,0.0,nM/mL,Initial fat ISF concentration (C_is_fat_0)
+C_is_marrow_0,0.0,nM/mL,Initial bone marrow ISF concentration (C_is_marrow_0)
+C_is_thymus_0,0.0,nM/mL,Initial thymus ISF concentration (C_is_thymus_0)
+C_is_SI_0,0.0,nM/mL,Initial SI ISF concentration (C_is_SI_0)
+C_is_LI_0,0.0,nM/mL,Initial LI ISF concentration (C_is_LI_0)
+C_is_spleen_0,0.0,nM/mL,Initial spleen ISF concentration (C_is_spleen_0)
+C_is_pancreas_0,0.0,nM/mL,Initial pancreas ISF concentration (C_is_pancreas_0)
+C_is_other_0,0.0,nM/mL,Initial other ISF concentration (C_is_other_0)
+C_e_unbound_lung_0,0.0,nM/mL,Initial lung endosomal unbound concentration (C_e_unbound_lung_0)
+C_e_bound_lung_0,0.0,nM/mL,Initial lung endosomal bound concentration (C_e_bound_lung_0)
+FcRn_free_lung_0,4.982e-05,nM/mL,Initial lung FcRn free concentration (FcRn_free_lung_0)
+C_e_unbound_heart_0,0.0,nM/mL,Initial heart endosomal unbound concentration (C_e_unbound_heart_0)
+C_e_bound_heart_0,0.0,nM/mL,Initial heart endosomal bound concentration (C_e_bound_heart_0)
+FcRn_free_heart_0,4.982e-05,nM/mL,Initial heart FcRn free concentration (FcRn_free_heart_0)
+C_e_unbound_liver_0,0.0,nM/mL,Initial liver endosomal unbound concentration (C_e_unbound_liver_0)
+C_e_bound_liver_0,0.0,nM/mL,Initial liver endosomal bound concentration (C_e_bound_liver_0)
+FcRn_free_liver_0,4.982e-05,nM/mL,Initial liver FcRn free concentration (FcRn_free_liver_0)
+C_e_unbound_kidney_0,0.0,nM/mL,Initial kidney endosomal unbound concentration (C_e_unbound_kidney_0)
+C_e_bound_kidney_0,0.0,nM/mL,Initial kidney endosomal bound concentration (C_e_bound_kidney_0)
+FcRn_free_kidney_0,4.982e-05,nM/mL,Initial kidney FcRn free concentration (FcRn_free_kidney_0)
+C_e_unbound_muscle_0,0.0,nM/mL,Initial muscle endosomal unbound concentration (C_e_unbound_muscle_0)
+C_e_bound_muscle_0,0.0,nM/mL,Initial muscle endosomal bound concentration (C_e_bound_muscle_0)
+FcRn_free_muscle_0,4.982e-05,nM/mL,Initial muscle FcRn free concentration (FcRn_free_muscle_0)
+C_e_unbound_skin_0,0.0,nM/mL,Initial skin endosomal unbound concentration (C_e_unbound_skin_0)
+C_e_bound_skin_0,0.0,nM/mL,Initial skin endosomal bound concentration (C_e_bound_skin_0)
+FcRn_free_skin_0,4.982e-05,nM/mL,Initial skin FcRn free concentration (FcRn_free_skin_0)
+C_e_unbound_fat_0,0.0,nM/mL,Initial fat endosomal unbound concentration (C_e_unbound_fat_0)
+C_e_bound_fat_0,0.0,nM/mL,Initial fat endosomal bound concentration (C_e_bound_fat_0)
+FcRn_free_fat_0,4.982e-05,nM/mL,Initial fat FcRn free concentration (FcRn_free_fat_0)
+C_e_unbound_marrow_0,0.0,nM/mL,Initial marrow endosomal unbound concentration (C_e_unbound_marrow_0)
+C_e_bound_marrow_0,0.0,nM/mL,Initial marrow endosomal bound concentration (C_e_bound_marrow_0)
+FcRn_free_marrow_0,4.982e-05,nM/mL,Initial marrow FcRn free concentration (FcRn_free_marrow_0)
+C_e_unbound_thymus_0,0.0,nM/mL,Initial thymus endosomal unbound concentration (C_e_unbound_thymus_0)
+C_e_bound_thymus_0,0.0,nM/mL,Initial thymus endosomal bound concentration (C_e_bound_thymus_0)
+FcRn_free_thymus_0,4.982e-05,nM/mL,Initial thymus FcRn free concentration (FcRn_free_thymus_0)
+C_e_unbound_SI_0,0.0,nM/mL,Initial SI endosomal unbound concentration (C_e_unbound_SI_0)
+C_e_bound_SI_0,0.0,nM/mL,Initial SI endosomal bound concentration (C_e_bound_SI_0)
+FcRn_free_SI_0,4.982e-05,nM/mL,Initial SI FcRn free concentration (FcRn_free_SI_0)
+C_e_unbound_LI_0,0.0,nM/mL,Initial LI endosomal unbound concentration (C_e_unbound_LI_0)
+C_e_bound_LI_0,0.0,nM/mL,Initial LI endosomal bound concentration (C_e_bound_LI_0)
+FcRn_free_LI_0,4.982e-05,nM/mL,Initial LI FcRn free concentration (FcRn_free_LI_0)
+C_e_unbound_spleen_0,0.0,nM/mL,Initial spleen endosomal unbound concentration (C_e_unbound_spleen_0)
+C_e_bound_spleen_0,0.0,nM/mL,Initial spleen endosomal bound concentration (C_e_bound_spleen_0)
+FcRn_free_spleen_0,4.982e-05,nM/mL,Initial spleen FcRn free concentration (FcRn_free_spleen_0)
+C_e_unbound_pancreas_0,0.0,nM/mL,Initial pancreas endosomal unbound concentration (C_e_unbound_pancreas_0)
+C_e_bound_pancreas_0,0.0,nM/mL,Initial pancreas endosomal bound concentration (C_e_bound_pancreas_0)
+FcRn_free_pancreas_0,4.982e-05,nM/mL,Initial pancreas FcRn free concentration (FcRn_free_pancreas_0)
+C_e_unbound_other_0,0.0,nM/mL,Initial other endosomal unbound concentration (C_e_unbound_other_0)
+C_e_bound_other_0,0.0,nM/mL,Initial other endosomal bound concentration (C_e_bound_other_0)
+FcRn_free_other_0,4.982e-05,nM/mL,Initial other FcRn free concentration (FcRn_free_other_0)
+C_BBB_unbound_brain_0,0.0,nM/mL,Initial BBB unbound concentration (C_BBB_unbound_brain_0)
+C_BBB_bound_brain_0,0.0,nM/mL,Initial BBB bound concentration (C_BBB_bound_brain_0)
+C_BCSFB_unbound_brain_0,0.0,nM/mL,Initial BCSFB unbound concentration (C_BCSFB_unbound_brain_0)
+C_BCSFB_bound_brain_0,0.0,nM/mL,Initial BCSFB bound concentration (C_BCSFB_bound_brain_0)
+C_LV_brain_0,0.0,nM/mL,Initial lateral ventricle concentration (C_LV_brain_0)
+C_TFV_brain_0,0.0,nM/mL,Initial third/fourth ventricle concentration (C_TFV_brain_0)
+C_CM_brain_0,0.0,nM/mL,Initial cisterna magna concentration (C_CM_brain_0)
+C_SAS_brain_0,0.0,nM/mL,Initial subarachnoid space concentration (C_SAS_brain_0)

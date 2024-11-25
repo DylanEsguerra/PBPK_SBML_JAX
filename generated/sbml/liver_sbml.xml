@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model id="Liver_Model" timeUnits="hour">
+    <listOfCompartments>
+      <compartment id="Vp_liver" size="108" units="millilitre" constant="true"/>
+      <compartment id="VBC_liver" size="88.5" units="millilitre" constant="true"/>
+      <compartment id="VIS_liver" size="435" units="millilitre" constant="true"/>
+      <compartment id="VES_liver" size="10.8" units="millilitre" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="C_p_liver" compartment="Vp_liver" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_bc_liver" compartment="VBC_liver" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_is_liver" compartment="VIS_liver" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_e_unbound_liver" compartment="VES_liver" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_e_bound_liver" compartment="VES_liver" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="FcRn_free_liver" compartment="VES_liver" initialConcentration="1" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="Vp_liver" value="108" constant="true"/>
+      <parameter id="VBC_liver" value="88.5" constant="true"/>
+      <parameter id="VIS_liver" value="435" constant="true"/>
+      <parameter id="VES_liver" value="10.8" constant="true"/>
+      <parameter id="Q_p_liver" value="43200" constant="true"/>
+      <parameter id="Q_bc_liver" value="35400" constant="true"/>
+      <parameter id="Q_p_spleen" value="1080" constant="true"/>
+      <parameter id="Q_bc_spleen" value="885" constant="true"/>
+      <parameter id="Q_p_pancreas" value="1080" constant="true"/>
+      <parameter id="Q_bc_pancreas" value="885" constant="true"/>
+      <parameter id="Q_p_SI" value="4320" constant="true"/>
+      <parameter id="Q_bc_SI" value="3540" constant="true"/>
+      <parameter id="Q_p_LI" value="4320" constant="true"/>
+      <parameter id="Q_bc_LI" value="3540" constant="true"/>
+      <parameter id="L_liver" value="432" constant="true"/>
+      <parameter id="L_spleen" value="10.8" constant="true"/>
+      <parameter id="L_pancreas" value="10.8" constant="true"/>
+      <parameter id="L_SI" value="43.2" constant="true"/>
+      <parameter id="L_LI" value="43.2" constant="true"/>
+      <parameter id="kon_FcRn" value="0.1" constant="true"/>
+      <parameter id="koff_FcRn" value="0.01" constant="true"/>
+      <parameter id="kdeg" value="26.6" constant="true"/>
+      <parameter id="CLup_liver" value="0.05" constant="true"/>
+      <parameter id="sigma_V_liver" value="0.95" constant="true"/>
+      <parameter id="sigma_L_liver" value="0.2" constant="true"/>
+      <parameter id="FR" value="0.15" constant="true"/>
+      <parameter id="C_p_liver_0" value="0" constant="true"/>
+      <parameter id="C_bc_liver_0" value="0" constant="true"/>
+      <parameter id="C_is_liver_0" value="0" constant="true"/>
+      <parameter id="C_e_unbound_liver_0" value="0" constant="true"/>
+      <parameter id="C_e_bound_liver_0" value="0" constant="true"/>
+      <parameter id="FcRn_free_liver_0" value="1" constant="true"/>
+      <parameter id="C_p_lung_0" value="0" constant="true"/>
+      <parameter id="C_bc_lung_0" value="0" constant="true"/>
+      <parameter id="C_p_spleen_0" value="0" constant="true"/>
+      <parameter id="C_bc_spleen_0" value="0" constant="true"/>
+      <parameter id="C_p_pancreas_0" value="0" constant="true"/>
+      <parameter id="C_bc_pancreas_0" value="0" constant="true"/>
+      <parameter id="C_p_SI_0" value="0" constant="true"/>
+      <parameter id="C_bc_SI_0" value="0" constant="true"/>
+      <parameter id="C_p_LI_0" value="0" constant="true"/>
+      <parameter id="C_bc_LI_0" value="0" constant="true"/>
+      <parameter id="C_p_lung" value="0" units="mole_per_litre" constant="false"/>
+      <parameter id="C_bc_lung" value="0" units="mole_per_litre" constant="false"/>
+      <parameter id="C_p_spleen" value="0" units="mole_per_litre" constant="false"/>
+      <parameter id="C_bc_spleen" value="0" units="mole_per_litre" constant="false"/>
+      <parameter id="C_p_pancreas" value="0" units="mole_per_litre" constant="false"/>
+      <parameter id="C_bc_pancreas" value="0" units="mole_per_litre" constant="false"/>
+      <parameter id="C_p_SI" value="0" units="mole_per_litre" constant="false"/>
+      <parameter id="C_bc_SI" value="0" units="mole_per_litre" constant="false"/>
+      <parameter id="C_p_LI" value="0" units="mole_per_litre" constant="false"/>
+      <parameter id="C_bc_LI" value="0" units="mole_per_litre" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="C_p_liver">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> Vp_liver </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <plus/>
+                      <apply>
+                        <times/>
+                        <ci> Q_p_liver </ci>
+                        <ci> C_p_lung </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <apply>
+                          <minus/>
+                          <ci> Q_p_spleen </ci>
+                          <ci> L_spleen </ci>
+                        </apply>
+                        <ci> C_p_spleen </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <apply>
+                          <minus/>
+                          <ci> Q_p_pancreas </ci>
+                          <ci> L_pancreas </ci>
+                        </apply>
+                        <ci> C_p_pancreas </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <apply>
+                          <minus/>
+                          <ci> Q_p_SI </ci>
+                          <ci> L_SI </ci>
+                        </apply>
+                        <ci> C_p_SI </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <apply>
+                          <minus/>
+                          <ci> Q_p_LI </ci>
+                          <ci> L_LI </ci>
+                        </apply>
+                        <ci> C_p_LI </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <plus/>
+                        <apply>
+                          <minus/>
+                          <ci> Q_p_liver </ci>
+                          <ci> L_liver </ci>
+                        </apply>
+                        <apply>
+                          <minus/>
+                          <ci> Q_p_spleen </ci>
+                          <ci> L_spleen </ci>
+                        </apply>
+                        <apply>
+                          <minus/>
+                          <ci> Q_p_pancreas </ci>
+                          <ci> L_pancreas </ci>
+                        </apply>
+                        <apply>
+                          <minus/>
+                          <ci> Q_p_SI </ci>
+                          <ci> L_SI </ci>
+                        </apply>
+                        <apply>
+                          <minus/>
+                          <ci> Q_p_LI </ci>
+                          <ci> L_LI </ci>
+                        </apply>
+                      </apply>
+                      <ci> C_p_liver </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <apply>
+                      <minus/>
+                      <cn type="integer"> 1 </cn>
+                      <ci> sigma_V_liver </ci>
+                    </apply>
+                    <ci> L_liver </ci>
+                    <ci> C_p_liver </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> CLup_liver </ci>
+                  <ci> C_p_liver </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> CLup_liver </ci>
+                <ci> FR </ci>
+                <ci> C_e_bound_liver </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_bc_liver">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VBC_liver </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> Q_bc_liver </ci>
+                  <ci> C_bc_lung </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Q_bc_spleen </ci>
+                  <ci> C_bc_spleen </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Q_bc_pancreas </ci>
+                  <ci> C_bc_pancreas </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Q_bc_SI </ci>
+                  <ci> C_bc_SI </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Q_bc_LI </ci>
+                  <ci> C_bc_LI </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <ci> Q_bc_liver </ci>
+                  <ci> Q_bc_spleen </ci>
+                  <ci> Q_bc_pancreas </ci>
+                  <ci> Q_bc_SI </ci>
+                  <ci> Q_bc_LI </ci>
+                </apply>
+                <ci> C_bc_liver </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_is_liver">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VIS_liver </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <times/>
+                    <apply>
+                      <minus/>
+                      <cn type="integer"> 1 </cn>
+                      <ci> sigma_V_liver </ci>
+                    </apply>
+                    <ci> L_liver </ci>
+                    <ci> C_p_liver </ci>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <apply>
+                      <minus/>
+                      <cn type="integer"> 1 </cn>
+                      <ci> sigma_L_liver </ci>
+                    </apply>
+                    <ci> L_liver </ci>
+                    <ci> C_is_liver </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> CLup_liver </ci>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> FR </ci>
+                  </apply>
+                  <ci> C_e_bound_liver </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> CLup_liver </ci>
+                <ci> C_is_liver </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_e_unbound_liver">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VES_liver </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <times/>
+                    <ci> CLup_liver </ci>
+                    <apply>
+                      <plus/>
+                      <ci> C_p_liver </ci>
+                      <ci> C_is_liver </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> VES_liver </ci>
+                    <ci> kon_FcRn </ci>
+                    <ci> C_e_unbound_liver </ci>
+                    <ci> FcRn_free_liver </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> VES_liver </ci>
+                  <ci> koff_FcRn </ci>
+                  <ci> C_e_bound_liver </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> kdeg </ci>
+                <ci> C_e_unbound_liver </ci>
+                <ci> VES_liver </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_e_bound_liver">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VES_liver </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> VES_liver </ci>
+                  <ci> kon_FcRn </ci>
+                  <ci> C_e_unbound_liver </ci>
+                  <ci> FcRn_free_liver </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> VES_liver </ci>
+                  <ci> koff_FcRn </ci>
+                  <ci> C_e_bound_liver </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> CLup_liver </ci>
+                <ci> C_e_bound_liver </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="FcRn_free_liver">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VES_liver </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> koff_FcRn </ci>
+                  <ci> C_e_bound_liver </ci>
+                  <ci> VES_liver </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> kon_FcRn </ci>
+                  <ci> C_e_unbound_liver </ci>
+                  <ci> FcRn_free_liver </ci>
+                  <ci> VES_liver </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> CLup_liver </ci>
+                <ci> C_e_bound_liver </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>

@@ -1,0 +1,1773 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model id="PBPK_Model" timeUnits="hour">
+    <listOfCompartments>
+      <compartment id="plasma" size="3126" units="millilitre" constant="true"/>
+      <compartment id="blood_cells" size="2558" units="millilitre" constant="true"/>
+      <compartment id="lymph_node" size="274" units="millilitre" constant="true"/>
+      <compartment id="Vp_lung" size="55" units="millilitre" constant="true"/>
+      <compartment id="VBC_lung" size="45" units="millilitre" constant="true"/>
+      <compartment id="VIS_lung" size="126" units="millilitre" constant="true"/>
+      <compartment id="VES_lung" size="0.1" units="millilitre" constant="true"/>
+      <compartment id="brain_plasma" size="12" units="millilitre" constant="true"/>
+      <compartment id="BBB_unbound" size="0.1" units="millilitre" constant="true"/>
+      <compartment id="BBB_bound" size="0.1" units="millilitre" constant="true"/>
+      <compartment id="brain_ISF" size="180" units="millilitre" constant="true"/>
+      <compartment id="brain_blood_cells" size="10" units="millilitre" constant="true"/>
+      <compartment id="BCSFB_unbound" size="0.1" units="millilitre" constant="true"/>
+      <compartment id="BCSFB_bound" size="0.1" units="millilitre" constant="true"/>
+      <compartment id="LV" size="20" units="millilitre" constant="true"/>
+      <compartment id="TFV" size="20" units="millilitre" constant="true"/>
+      <compartment id="CM" size="7.5" units="millilitre" constant="true"/>
+      <compartment id="SAS" size="90" units="millilitre" constant="true"/>
+      <compartment id="Vp_liver" size="100" units="millilitre" constant="true"/>
+      <compartment id="VBC_liver" size="82" units="millilitre" constant="true"/>
+      <compartment id="VIS_liver" size="230" units="millilitre" constant="true"/>
+      <compartment id="VES_liver" size="0.1" units="millilitre" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="C_p" compartment="plasma" initialConcentration="10" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_bc" compartment="blood_cells" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_ln" compartment="lymph_node" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_p_lung" compartment="Vp_lung" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_bc_lung" compartment="VBC_lung" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_is_lung" compartment="VIS_lung" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_e_unbound_lung" compartment="VES_lung" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_e_bound_lung" compartment="VES_lung" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="FcRn_free_lung" compartment="VES_lung" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_p_brain" compartment="brain_plasma" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_BBB_unbound_brain" compartment="BBB_unbound" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_BBB_bound_brain" compartment="BBB_bound" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_is_brain" compartment="brain_ISF" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_bc_brain" compartment="brain_blood_cells" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_BCSFB_unbound_brain" compartment="BCSFB_unbound" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_BCSFB_bound_brain" compartment="BCSFB_bound" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_LV_brain" compartment="LV" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_TFV_brain" compartment="TFV" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_CM_brain" compartment="CM" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_SAS_brain" compartment="SAS" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_p_liver" compartment="Vp_liver" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_bc_liver" compartment="VBC_liver" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_is_liver" compartment="VIS_liver" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_e_unbound_liver" compartment="VES_liver" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="C_e_bound_liver" compartment="VES_liver" initialConcentration="0" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="FcRn_free_liver" compartment="VES_liver" initialConcentration="1" substanceUnits="mole_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="C_p_0" value="10" constant="true"/>
+      <parameter id="C_bc_0" value="0" constant="true"/>
+      <parameter id="C_ln_0" value="0" constant="true"/>
+      <parameter id="C_p_lung_0" value="0" constant="true"/>
+      <parameter id="C_bc_lung_0" value="0" constant="true"/>
+      <parameter id="C_is_lung_0" value="0" constant="true"/>
+      <parameter id="C_e_unbound_lung_0" value="0" constant="true"/>
+      <parameter id="C_e_bound_lung_0" value="0" constant="true"/>
+      <parameter id="FcRn_free_lung_0" value="0" constant="true"/>
+      <parameter id="C_p_brain_0" value="0" constant="true"/>
+      <parameter id="C_BBB_unbound_brain_0" value="0" constant="true"/>
+      <parameter id="C_BBB_bound_brain_0" value="0" constant="true"/>
+      <parameter id="C_is_brain_0" value="0" constant="true"/>
+      <parameter id="C_bc_brain_0" value="0" constant="true"/>
+      <parameter id="C_BCSFB_unbound_brain_0" value="0" constant="true"/>
+      <parameter id="C_BCSFB_bound_brain_0" value="0" constant="true"/>
+      <parameter id="C_LV_brain_0" value="0" constant="true"/>
+      <parameter id="C_TFV_brain_0" value="0" constant="true"/>
+      <parameter id="C_CM_brain_0" value="0" constant="true"/>
+      <parameter id="C_SAS_brain_0" value="0" constant="true"/>
+      <parameter id="C_p_liver_0" value="0" constant="true"/>
+      <parameter id="C_bc_liver_0" value="0" constant="true"/>
+      <parameter id="C_is_liver_0" value="0" constant="true"/>
+      <parameter id="C_e_unbound_liver_0" value="0" constant="true"/>
+      <parameter id="C_e_bound_liver_0" value="0" constant="true"/>
+      <parameter id="FcRn_free_liver_0" value="1" constant="true"/>
+      <parameter id="Q_p_lung" value="181913" constant="true"/>
+      <parameter id="Q_p_heart" value="0" constant="true"/>
+      <parameter id="Q_p_kidney" value="0" constant="true"/>
+      <parameter id="Q_p_brain" value="21453" constant="true"/>
+      <parameter id="Q_p_muscle" value="0" constant="true"/>
+      <parameter id="Q_p_marrow" value="0" constant="true"/>
+      <parameter id="Q_p_thymus" value="0" constant="true"/>
+      <parameter id="Q_p_skin" value="0" constant="true"/>
+      <parameter id="Q_p_fat" value="0" constant="true"/>
+      <parameter id="Q_p_liver" value="13210" constant="true"/>
+      <parameter id="Q_p_spleen" value="6343" constant="true"/>
+      <parameter id="Q_p_pancreas" value="3056" constant="true"/>
+      <parameter id="Q_p_SI" value="12368" constant="true"/>
+      <parameter id="Q_p_LI" value="12867" constant="true"/>
+      <parameter id="Q_p_other" value="0" constant="true"/>
+      <parameter id="Q_bc_lung" value="148838" constant="true"/>
+      <parameter id="Q_bc_heart" value="0" constant="true"/>
+      <parameter id="Q_bc_kidney" value="0" constant="true"/>
+      <parameter id="Q_bc_brain" value="17553" constant="true"/>
+      <parameter id="Q_bc_muscle" value="0" constant="true"/>
+      <parameter id="Q_bc_marrow" value="0" constant="true"/>
+      <parameter id="Q_bc_thymus" value="0" constant="true"/>
+      <parameter id="Q_bc_skin" value="0" constant="true"/>
+      <parameter id="Q_bc_fat" value="0" constant="true"/>
+      <parameter id="Q_bc_liver" value="10808" constant="true"/>
+      <parameter id="Q_bc_spleen" value="5189" constant="true"/>
+      <parameter id="Q_bc_pancreas" value="2500" constant="true"/>
+      <parameter id="Q_bc_SI" value="10120" constant="true"/>
+      <parameter id="Q_bc_LI" value="10527" constant="true"/>
+      <parameter id="Q_bc_other" value="0" constant="true"/>
+      <parameter id="L_lung" value="183" constant="true"/>
+      <parameter id="L_heart" value="0" constant="true"/>
+      <parameter id="L_kidney" value="0" constant="true"/>
+      <parameter id="L_brain" value="215" constant="true"/>
+      <parameter id="L_muscle" value="0" constant="true"/>
+      <parameter id="L_marrow" value="0" constant="true"/>
+      <parameter id="L_thymus" value="0" constant="true"/>
+      <parameter id="L_skin" value="0" constant="true"/>
+      <parameter id="L_fat" value="0" constant="true"/>
+      <parameter id="L_liver" value="132" constant="true"/>
+      <parameter id="L_spleen" value="63" constant="true"/>
+      <parameter id="L_pancreas" value="31" constant="true"/>
+      <parameter id="L_SI" value="124" constant="true"/>
+      <parameter id="L_LI" value="129" constant="true"/>
+      <parameter id="L_other" value="0" constant="true"/>
+      <parameter id="L_LN" value="0" constant="true"/>
+      <parameter id="Q_CSF_brain" value="24" constant="true"/>
+      <parameter id="Q_ISF_brain" value="10.5" constant="true"/>
+      <parameter id="sigma_V_lung" value="0.95" constant="true"/>
+      <parameter id="sigma_L_lung" value="0.2" constant="true"/>
+      <parameter id="sigma_V_BBB" value="0.95" constant="true"/>
+      <parameter id="sigma_L_brain_ISF" value="0.2" constant="true"/>
+      <parameter id="sigma_L_SAS" value="0.2" constant="true"/>
+      <parameter id="sigma_V_BCSFB" value="0.95" constant="true"/>
+      <parameter id="sigma_V_liver" value="0.95" constant="true"/>
+      <parameter id="sigma_L_liver" value="0.2" constant="true"/>
+      <parameter id="kon_FcRn" value="0.1" constant="true"/>
+      <parameter id="koff_FcRn" value="0.01" constant="true"/>
+      <parameter id="kdeg" value="26.6" constant="true"/>
+      <parameter id="FR" value="0.15" constant="true"/>
+      <parameter id="CLup_lung" value="0.1" constant="true"/>
+      <parameter id="CLup_brain" value="0.1" constant="true"/>
+      <parameter id="CLup_liver" value="0.1" constant="true"/>
+      <parameter id="f_BBB" value="0.5" constant="true"/>
+      <parameter id="f_LV" value="0.5" constant="true"/>
+      <parameter id="V_ES_brain" value="0" constant="true"/>
+      <parameter id="VBBB_brain" value="0.1" constant="true"/>
+      <parameter id="FcRn_free_BBB" value="0" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="C_p">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> Vp </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <plus/>
+                    <ci> Q_p_lung </ci>
+                    <ci> L_lung </ci>
+                  </apply>
+                </apply>
+                <ci> C_p </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Q_p_heart </ci>
+                  <ci> L_heart </ci>
+                </apply>
+                <ci> C_p_heart </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Q_p_kidney </ci>
+                  <ci> L_kidney </ci>
+                </apply>
+                <ci> C_p_kidney </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Q_p_brain </ci>
+                  <ci> L_brain </ci>
+                </apply>
+                <ci> C_p_brain </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Q_p_muscle </ci>
+                  <ci> L_muscle </ci>
+                </apply>
+                <ci> C_p_muscle </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Q_p_marrow </ci>
+                  <ci> L_marrow </ci>
+                </apply>
+                <ci> C_p_marrow </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Q_p_thymus </ci>
+                  <ci> L_thymus </ci>
+                </apply>
+                <ci> C_p_thymus </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Q_p_skin </ci>
+                  <ci> L_skin </ci>
+                </apply>
+                <ci> C_p_skin </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Q_p_fat </ci>
+                  <ci> L_fat </ci>
+                </apply>
+                <ci> C_p_fat </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <minus/>
+                    <ci> Q_p_SI </ci>
+                    <ci> L_SI </ci>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <ci> Q_p_LI </ci>
+                    <ci> L_LI </ci>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <ci> Q_p_spleen </ci>
+                    <ci> L_spleen </ci>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <ci> Q_p_pancreas </ci>
+                    <ci> L_pancreas </ci>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <ci> Q_p_liver </ci>
+                    <ci> L_liver </ci>
+                  </apply>
+                </apply>
+                <ci> C_p_liver </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Q_p_other </ci>
+                  <ci> L_other </ci>
+                </apply>
+                <ci> C_p_other </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> L_LN </ci>
+                <ci> C_ln </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_bc">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> Vbc </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> Q_bc_lung </ci>
+                </apply>
+                <ci> C_bc </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> Q_bc_heart </ci>
+                <ci> C_bc_heart </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> Q_bc_kidney </ci>
+                <ci> C_bc_kidney </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> Q_bc_brain </ci>
+                <ci> C_bc_brain </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> Q_bc_muscle </ci>
+                <ci> C_bc_muscle </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> Q_bc_marrow </ci>
+                <ci> C_bc_marrow </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> Q_bc_thymus </ci>
+                <ci> C_bc_thymus </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> Q_bc_skin </ci>
+                <ci> C_bc_skin </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> Q_bc_fat </ci>
+                <ci> C_bc_fat </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <ci> Q_bc_SI </ci>
+                  <ci> Q_bc_LI </ci>
+                  <ci> Q_bc_spleen </ci>
+                  <ci> Q_bc_pancreas </ci>
+                  <ci> Q_bc_liver </ci>
+                </apply>
+                <ci> C_bc_liver </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> Q_bc_other </ci>
+                <ci> C_bc_other </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_ln">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> Vlymphnode </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> sigma_L_lung </ci>
+                  </apply>
+                  <ci> L_lung </ci>
+                  <ci> C_is_lung </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> sigma_L_heart </ci>
+                  </apply>
+                  <ci> L_heart </ci>
+                  <ci> C_is_heart </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> sigma_L_kidney </ci>
+                  </apply>
+                  <ci> L_kidney </ci>
+                  <ci> C_is_kidney </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> sigma_L_SAS </ci>
+                  </apply>
+                  <ci> Q_CSF_brain </ci>
+                  <ci> C_SAS_brain </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> sigma_L_brain_ISF </ci>
+                  </apply>
+                  <ci> Q_ISF_brain </ci>
+                  <ci> C_is_brain </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> sigma_L_muscle </ci>
+                  </apply>
+                  <ci> L_muscle </ci>
+                  <ci> C_is_muscle </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> sigma_L_marrow </ci>
+                  </apply>
+                  <ci> L_marrow </ci>
+                  <ci> C_is_marrow </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> sigma_L_thymus </ci>
+                  </apply>
+                  <ci> L_thymus </ci>
+                  <ci> C_is_thymus </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> sigma_L_skin </ci>
+                  </apply>
+                  <ci> L_skin </ci>
+                  <ci> C_is_skin </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> sigma_L_fat </ci>
+                  </apply>
+                  <ci> L_fat </ci>
+                  <ci> C_is_fat </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> sigma_L_SI </ci>
+                  </apply>
+                  <ci> L_SI </ci>
+                  <ci> C_is_SI </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> sigma_L_LI </ci>
+                  </apply>
+                  <ci> L_LI </ci>
+                  <ci> C_is_LI </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> sigma_L_spleen </ci>
+                  </apply>
+                  <ci> L_spleen </ci>
+                  <ci> C_is_spleen </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> sigma_L_pancreas </ci>
+                  </apply>
+                  <ci> L_pancreas </ci>
+                  <ci> C_is_pancreas </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> sigma_L_liver </ci>
+                  </apply>
+                  <ci> L_liver </ci>
+                  <ci> C_is_liver </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> sigma_L_other </ci>
+                  </apply>
+                  <ci> L_other </ci>
+                  <ci> C_is_other </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> L_LN </ci>
+                <ci> C_ln </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_p_lung">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> Vp_lung </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <ci> Q_p_lung </ci>
+                      <ci> C_p </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <ci> Q_p_lung </ci>
+                      <ci> C_p_lung </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <apply>
+                      <minus/>
+                      <cn type="integer"> 1 </cn>
+                      <ci> sigma_V_lung </ci>
+                    </apply>
+                    <ci> L_lung </ci>
+                    <ci> C_p_lung </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> CLup_lung </ci>
+                  <ci> C_p_lung </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> CLup_lung </ci>
+                <ci> FR </ci>
+                <ci> C_e_bound_lung </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_bc_lung">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VBC_lung </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> Q_bc_lung </ci>
+                <ci> C_bc </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> Q_bc_lung </ci>
+                <ci> C_bc_lung </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_e_unbound_lung">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VES_lung </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <times/>
+                    <ci> CLup_lung </ci>
+                    <apply>
+                      <plus/>
+                      <ci> C_p_lung </ci>
+                      <ci> C_is_lung </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> VES_lung </ci>
+                    <ci> kon_FcRn </ci>
+                    <ci> C_e_unbound_lung </ci>
+                    <ci> FcRn_free_lung </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> VES_lung </ci>
+                  <ci> koff_FcRn </ci>
+                  <ci> C_e_bound_lung </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> kdeg </ci>
+                <ci> C_e_unbound_lung </ci>
+                <ci> VES_lung </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_e_bound_lung">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VES_lung </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> VES_lung </ci>
+                  <ci> kon_FcRn </ci>
+                  <ci> C_e_unbound_lung </ci>
+                  <ci> FcRn_free_lung </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> VES_lung </ci>
+                  <ci> koff_FcRn </ci>
+                  <ci> C_e_bound_lung </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> CLup_lung </ci>
+                <ci> C_e_bound_lung </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_is_lung">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VIS_lung </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <times/>
+                    <apply>
+                      <minus/>
+                      <cn type="integer"> 1 </cn>
+                      <ci> sigma_V_lung </ci>
+                    </apply>
+                    <ci> L_lung </ci>
+                    <ci> C_p_lung </ci>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <apply>
+                      <minus/>
+                      <cn type="integer"> 1 </cn>
+                      <ci> sigma_L_lung </ci>
+                    </apply>
+                    <ci> L_lung </ci>
+                    <ci> C_is_lung </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> CLup_lung </ci>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> FR </ci>
+                  </apply>
+                  <ci> C_e_bound_lung </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> CLup_lung </ci>
+                <ci> C_is_lung </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="FcRn_free_lung">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VES_lung </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> koff_FcRn </ci>
+                  <ci> C_e_bound_lung </ci>
+                  <ci> VES_lung </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> kon_FcRn </ci>
+                  <ci> C_e_unbound_lung </ci>
+                  <ci> FcRn_free_lung </ci>
+                  <ci> VES_lung </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> CLup_lung </ci>
+                <ci> C_e_bound_lung </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_p_brain">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> Vp_brain </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <minus/>
+                      <apply>
+                        <times/>
+                        <ci> Q_p_brain </ci>
+                        <ci> C_p_lung </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <apply>
+                          <minus/>
+                          <ci> Q_p_brain </ci>
+                          <ci> L_brain </ci>
+                        </apply>
+                        <ci> C_p_brain </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <minus/>
+                        <cn type="integer"> 1 </cn>
+                        <ci> sigma_V_BBB </ci>
+                      </apply>
+                      <ci> Q_ISF_brain </ci>
+                      <ci> C_p_brain </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <apply>
+                      <minus/>
+                      <cn type="integer"> 1 </cn>
+                      <ci> sigma_V_BCSFB </ci>
+                    </apply>
+                    <ci> Q_CSF_brain </ci>
+                    <ci> C_p_brain </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> CLup_brain </ci>
+                  <ci> V_ES_brain </ci>
+                  <ci> C_p_brain </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> CLup_brain </ci>
+                <ci> f_BBB </ci>
+                <ci> V_ES_brain </ci>
+                <ci> FR </ci>
+                <ci> C_BBB_bound_brain </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> CLup_brain </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> f_BBB </ci>
+                </apply>
+                <ci> V_ES_brain </ci>
+                <ci> FR </ci>
+                <ci> C_BCSFB_bound_brain </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_BBB_unbound_brain">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VBBB_brain </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <times/>
+                    <ci> CLup_brain </ci>
+                    <ci> f_BBB </ci>
+                    <ci> V_ES_brain </ci>
+                    <apply>
+                      <plus/>
+                      <ci> C_p_brain </ci>
+                      <ci> C_is_brain </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> VBBB_brain </ci>
+                    <ci> kon_FcRn </ci>
+                    <ci> C_BBB_unbound_brain </ci>
+                    <ci> FcRn_free_BBB </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> VBBB_brain </ci>
+                  <ci> koff_FcRn </ci>
+                  <ci> C_BBB_bound_brain </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> VBBB_brain </ci>
+                <ci> kdeg </ci>
+                <ci> C_BBB_unbound_brain </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_BBB_bound_brain">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VBBB_brain </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> CLup_brain </ci>
+                  </apply>
+                  <ci> f_BBB </ci>
+                  <ci> V_ES_brain </ci>
+                  <ci> C_BBB_bound_brain </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> VBBB_brain </ci>
+                  <ci> kon_FcRn </ci>
+                  <ci> C_BBB_unbound_brain </ci>
+                  <ci> FcRn_free_BBB </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> VBBB_brain </ci>
+                <ci> koff_FcRn </ci>
+                <ci> C_BBB_bound_brain </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_is_brain">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VIS_brain </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <minus/>
+                        <cn type="integer"> 1 </cn>
+                        <ci> sigma_V_BBB </ci>
+                      </apply>
+                      <ci> Q_ISF_brain </ci>
+                      <ci> C_p_brain </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <minus/>
+                        <cn type="integer"> 1 </cn>
+                        <ci> sigma_L_brain_ISF </ci>
+                      </apply>
+                      <ci> Q_ISF_brain </ci>
+                      <ci> C_is_brain </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> Q_ISF_brain </ci>
+                    <ci> C_is_brain </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Q_ISF_brain </ci>
+                  <ci> C_SAS_brain </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> CLup_brain </ci>
+                  <ci> f_BBB </ci>
+                  <ci> V_ES_brain </ci>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> FR </ci>
+                  </apply>
+                  <ci> C_BBB_bound_brain </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> CLup_brain </ci>
+                <ci> f_BBB </ci>
+                <ci> V_ES_brain </ci>
+                <ci> C_is_brain </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_BCSFB_unbound_brain">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> V_BCSFB_brain </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <times/>
+                    <ci> CLup_brain </ci>
+                    <apply>
+                      <minus/>
+                      <cn type="integer"> 1 </cn>
+                      <ci> f_BBB </ci>
+                    </apply>
+                    <ci> V_ES_brain </ci>
+                    <apply>
+                      <plus/>
+                      <ci> C_p_brain </ci>
+                      <ci> C_LV_brain </ci>
+                      <ci> C_TFV_brain </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> V_BCSFB_brain </ci>
+                    <ci> kon_FcRn </ci>
+                    <ci> C_BCSFB_unbound_brain </ci>
+                    <ci> FcRn_free_BCSFB </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> V_BCSFB_brain </ci>
+                  <ci> koff_FcRn </ci>
+                  <ci> C_BCSFB_bound_brain </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> V_BCSFB_brain </ci>
+                <ci> kdeg </ci>
+                <ci> C_BCSFB_unbound_brain </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_BCSFB_bound_brain">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> V_BCSFB_brain </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> CLup_brain </ci>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> f_BBB </ci>
+                  </apply>
+                  <ci> V_ES_brain </ci>
+                  <ci> C_BCSFB_bound_brain </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> V_BCSFB_brain </ci>
+                  <ci> kon_FcRn </ci>
+                  <ci> C_BCSFB_unbound_brain </ci>
+                  <ci> FcRn_free_BCSFB </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> V_BCSFB_brain </ci>
+                <ci> koff_FcRn </ci>
+                <ci> C_BCSFB_bound_brain </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_LV_brain">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> V_LV_brain </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <plus/>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <minus/>
+                        <cn type="integer"> 1 </cn>
+                        <ci> sigma_V_BCSFB </ci>
+                      </apply>
+                      <ci> f_LV </ci>
+                      <ci> Q_CSF_brain </ci>
+                      <ci> C_p_brain </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <ci> f_LV </ci>
+                      <ci> Q_ISF_brain </ci>
+                      <ci> C_is_brain </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <apply>
+                      <plus/>
+                      <apply>
+                        <times/>
+                        <ci> f_LV </ci>
+                        <ci> Q_CSF_brain </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> f_LV </ci>
+                        <ci> Q_ISF_brain </ci>
+                      </apply>
+                    </apply>
+                    <ci> C_LV_brain </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> f_LV </ci>
+                  <ci> CLup_brain </ci>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> f_BBB </ci>
+                  </apply>
+                  <ci> V_ES_brain </ci>
+                  <ci> C_LV_brain </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> f_LV </ci>
+                <ci> CLup_brain </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> f_BBB </ci>
+                </apply>
+                <ci> V_ES_brain </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> FR </ci>
+                </apply>
+                <ci> C_BCSFB_bound_brain </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_TFV_brain">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> V_TFV_brain </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <plus/>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <minus/>
+                        <cn type="integer"> 1 </cn>
+                        <ci> sigma_V_BCSFB </ci>
+                      </apply>
+                      <apply>
+                        <minus/>
+                        <cn type="integer"> 1 </cn>
+                        <ci> f_LV </ci>
+                      </apply>
+                      <ci> Q_CSF_brain </ci>
+                      <ci> C_p_brain </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <minus/>
+                        <cn type="integer"> 1 </cn>
+                        <ci> f_LV </ci>
+                      </apply>
+                      <ci> Q_ISF_brain </ci>
+                      <ci> C_is_brain </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <apply>
+                      <plus/>
+                      <ci> Q_CSF_brain </ci>
+                      <ci> Q_ISF_brain </ci>
+                    </apply>
+                    <ci> C_TFV_brain </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> f_LV </ci>
+                  </apply>
+                  <ci> CLup_brain </ci>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> f_BBB </ci>
+                  </apply>
+                  <ci> V_ES_brain </ci>
+                  <ci> C_TFV_brain </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> f_LV </ci>
+                </apply>
+                <ci> CLup_brain </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> f_BBB </ci>
+                </apply>
+                <ci> V_ES_brain </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> FR </ci>
+                </apply>
+                <ci> C_BCSFB_bound_brain </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <times/>
+                    <ci> f_LV </ci>
+                    <ci> Q_CSF_brain </ci>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> f_LV </ci>
+                    <ci> Q_ISF_brain </ci>
+                  </apply>
+                </apply>
+                <ci> C_LV_brain </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_CM_brain">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> V_CM_brain </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <ci> Q_CSF_brain </ci>
+              <ci> Q_ISF_brain </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <ci> C_TFV_brain </ci>
+              <ci> C_CM_brain </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_SAS_brain">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> V_SAS_brain </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> Q_CSF_brain </ci>
+                    <ci> Q_ISF_brain </ci>
+                  </apply>
+                  <ci> C_CM_brain </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> sigma_L_SAS </ci>
+                  </apply>
+                  <ci> Q_CSF_brain </ci>
+                  <ci> C_SAS_brain </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> Q_ISF_brain </ci>
+                <ci> C_SAS_brain </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_p_liver">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> Vp_liver </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <plus/>
+                      <apply>
+                        <times/>
+                        <ci> Q_p_liver </ci>
+                        <ci> C_p_lung </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> Q_p_spleen </ci>
+                        <ci> C_p_spleen </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> Q_p_pancreas </ci>
+                        <ci> C_p_pancreas </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> Q_p_SI </ci>
+                        <ci> C_p_SI </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> Q_p_LI </ci>
+                        <ci> C_p_LI </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <plus/>
+                        <apply>
+                          <minus/>
+                          <ci> Q_p_liver </ci>
+                          <ci> L_liver </ci>
+                        </apply>
+                        <apply>
+                          <minus/>
+                          <ci> Q_p_spleen </ci>
+                          <ci> L_spleen </ci>
+                        </apply>
+                        <apply>
+                          <minus/>
+                          <ci> Q_p_pancreas </ci>
+                          <ci> L_pancreas </ci>
+                        </apply>
+                        <apply>
+                          <minus/>
+                          <ci> Q_p_SI </ci>
+                          <ci> L_SI </ci>
+                        </apply>
+                        <apply>
+                          <minus/>
+                          <ci> Q_p_LI </ci>
+                          <ci> L_LI </ci>
+                        </apply>
+                      </apply>
+                      <ci> C_p_liver </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <apply>
+                      <minus/>
+                      <cn type="integer"> 1 </cn>
+                      <ci> sigma_V_liver </ci>
+                    </apply>
+                    <ci> L_liver </ci>
+                    <ci> C_p_liver </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> CLup_liver </ci>
+                  <ci> C_p_liver </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> CLup_liver </ci>
+                <ci> FR </ci>
+                <ci> C_e_bound_liver </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_bc_liver">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VBC_liver </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> Q_bc_liver </ci>
+                  <ci> C_bc_lung </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Q_bc_spleen </ci>
+                  <ci> C_bc_spleen </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Q_bc_pancreas </ci>
+                  <ci> C_bc_pancreas </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Q_bc_SI </ci>
+                  <ci> C_bc_SI </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> Q_bc_LI </ci>
+                  <ci> C_bc_LI </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <ci> Q_bc_liver </ci>
+                  <ci> Q_bc_spleen </ci>
+                  <ci> Q_bc_pancreas </ci>
+                  <ci> Q_bc_SI </ci>
+                  <ci> Q_bc_LI </ci>
+                </apply>
+                <ci> C_bc_liver </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_is_liver">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VIS_liver </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <times/>
+                    <apply>
+                      <minus/>
+                      <cn type="integer"> 1 </cn>
+                      <ci> sigma_V_liver </ci>
+                    </apply>
+                    <ci> L_liver </ci>
+                    <ci> C_p_liver </ci>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <apply>
+                      <minus/>
+                      <cn type="integer"> 1 </cn>
+                      <ci> sigma_L_liver </ci>
+                    </apply>
+                    <ci> L_liver </ci>
+                    <ci> C_is_liver </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> CLup_liver </ci>
+                  <apply>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> FR </ci>
+                  </apply>
+                  <ci> C_e_bound_liver </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> CLup_liver </ci>
+                <ci> C_is_liver </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_e_unbound_liver">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VES_liver </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <times/>
+                    <ci> CLup_liver </ci>
+                    <apply>
+                      <plus/>
+                      <ci> C_p_liver </ci>
+                      <ci> C_is_liver </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> VES_liver </ci>
+                    <ci> kon_FcRn </ci>
+                    <ci> C_e_unbound_liver </ci>
+                    <ci> FcRn_free_liver </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> VES_liver </ci>
+                  <ci> koff_FcRn </ci>
+                  <ci> C_e_bound_liver </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> kdeg </ci>
+                <ci> C_e_unbound_liver </ci>
+                <ci> VES_liver </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C_e_bound_liver">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VES_liver </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> VES_liver </ci>
+                  <ci> kon_FcRn </ci>
+                  <ci> C_e_unbound_liver </ci>
+                  <ci> FcRn_free_liver </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> VES_liver </ci>
+                  <ci> koff_FcRn </ci>
+                  <ci> C_e_bound_liver </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> CLup_liver </ci>
+                <ci> C_e_bound_liver </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="FcRn_free_liver">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> VES_liver </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> koff_FcRn </ci>
+                  <ci> C_e_bound_liver </ci>
+                  <ci> VES_liver </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> kon_FcRn </ci>
+                  <ci> C_e_unbound_liver </ci>
+                  <ci> FcRn_free_liver </ci>
+                  <ci> VES_liver </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> CLup_liver </ci>
+                <ci> C_e_bound_liver </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>
