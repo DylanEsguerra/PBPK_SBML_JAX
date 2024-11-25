@@ -1,5 +1,10 @@
+"""
+Legacy simulation runner for the PBPK model using a unified approach.
+This file handles the setup of coupled systems, running simulations, and plotting results
+for the entire PBPK model.
+"""
 import jax
-#jax.config.update("jax_enable_x64", True)
+jax.config.update("jax_enable_x64", True)
 import jax.numpy as jnp
 from jax import jit
 import diffrax

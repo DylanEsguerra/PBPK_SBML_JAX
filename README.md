@@ -94,6 +94,19 @@ The PBPK model includes:
 - Blood-brain barrier dynamics
 - CSF flow and clearance
 
+
+## Generated Plots
+
+The core implementation (`run_PBPK.py`) generates two visualization plots:
+
+### 1. Typical Tissues Plot
+![Typical Tissues](concentration_plots_typical.png)
+
+
+### 2. All Compartments Plot
+![All Compartments](concentration_plots_all.png)
+
+
 ## References
 Chang HY, Wu S, Meno-Tetang G, Shah DK. A translational platform PBPK model for antibody disposition in the brain. J Pharmacokinet Pharmacodyn. 2019 Aug;46(4):319-338.
 

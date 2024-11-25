@@ -1,3 +1,13 @@
+"""
+Simulation runner for the PBPK model using a modular approach.
+This file handles the setup of coupled systems, running simulations, and plotting results
+for individual organ modules (blood, lung, brain, CSF, liver). This version uses a more
+rigid coupling structure compared to run_simulation_2.py.
+
+Note: This file is preferred implementation for testing and debugging circular dependencies, 
+but run_simulation_2.py is the eventual goal for a fully modular implementation.
+"""
+
 import jax
 jax.config.update("jax_enable_x64", True)
 import jax.numpy as jnp

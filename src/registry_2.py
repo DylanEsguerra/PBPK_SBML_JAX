@@ -1,3 +1,10 @@
+"""
+Module registry for the PBPK simulation system.
+This module handles:
+- Module configuration and dependency management
+- Finding circular dependencies
+- Generating execution orders
+"""
 from dataclasses import dataclass
 from typing import List, Dict, Set
 from pathlib import Path

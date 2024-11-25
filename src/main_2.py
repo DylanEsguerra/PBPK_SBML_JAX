@@ -1,3 +1,12 @@
+"""
+Main module for the PBPK simulation system.
+This module handles:
+- Registry setup and configuration
+- Parameter loading from Excel sheets
+- SBML model generation
+- JAX code generation from SBML
+- Module dependency management
+"""
 import jax
 jax.config.update("jax_enable_x64", True)
 import matplotlib.pyplot as plt

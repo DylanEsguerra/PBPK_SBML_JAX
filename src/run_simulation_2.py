@@ -1,3 +1,9 @@
+"""
+Simulation runner for the PBPK model using a modular approach.
+This file handles the setup of coupled systems, running simulations, and plotting results
+for individual organ modules (blood, lung, brain, CSF, liver).
+Here, we use the ModuleRegistry to manage module dependencies and execution order. 
+"""
 import jax
 jax.config.update("jax_enable_x64", True)
 import jax.numpy as jnp
