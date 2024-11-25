@@ -103,8 +103,8 @@ The core implementation (`run_PBPK.py`) generates two visualization plots:
 ![Typical Tissues](concentration_plots_typical.png)
 
 
-### 2. All Compartments Plot
-![All Compartments](concentration_plots_all.png)
+### 2. Non-Typical Compartments Plot
+![Non-Typical Compartments](concentration_plots_nontypical.png)
 
 
 ## References
