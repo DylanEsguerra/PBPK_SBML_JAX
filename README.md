@@ -46,15 +46,10 @@ The project offers two implementation approaches:
 
 - `src/models/[organ]/*`: Organ-specific modules
   - `[organ]_sbml.py`: SBML model generator
-  - `[organ]_solver.py`: Solver configuration
   - Parameters in `parameters/[organ]_params.xlsx`
 
 Current modules:
-- Blood: Central circulation system
-- Brain: Blood-brain barrier and brain tissue
-- CSF: Cerebrospinal fluid dynamics
-- Lung: Pulmonary circulation
-- Liver: Hepatic processing
+[Blood, Brain, CSF, Lung, Liver]
 
 ## Parameter Organization
 - Global parameters: `parameters/pbpk_parameters.csv`
@@ -62,7 +57,7 @@ Current modules:
   - Volumes
   - Flows
   - Kinetics
-  - Concentrations
+  - Initial Concentrations
 
 ## Generated Files
 - `generated/sbml/`: SBML model definitions
@@ -105,7 +100,7 @@ Chang HY, Wu S, Meno-Tetang G, Shah DK. A translational platform PBPK model for 
 ## Implementation Challenges and Current Status
 
 ### Core vs Modular Implementation
-The core implementation (`run_PBPK.py`) successfully solves the complete PBPK model by treating all compartments as part of a single system. This approach works well because all concentrations are updated simultaneously in each timestep.
+The core implementation (`run_PBPK.py`) successfully solves the complete PBPK model by treating all compartments as part of a single system. This approach works well because all concentrations are updated simultaneously in each timestep. Parameter choices are also the most up to date in this version. 
 
 ### Circular Dependencies in Modular Version
 The modular implementation (`run_simulation.py`) faces challenges with circular dependencies due to bidirectional flows:
@@ -128,14 +123,14 @@ In `run_simulation.py`, these circular flows can be controlled by commenting/unc
 # ... additional return flows ...
 ```
 
-- **With Return Flows Disabled**: The simulation shows logical forward flow from blood → lung → tissues
+- **With Return Flows Disabled**: The simulation shows logical forward flow from blood → lung → tissues, but lacks full complexity of the model
 - **With Return Flows Enabled**: The solution contains NaN values due to unresolved circular dependencies
 
 ### Ongoing Development
 Work is continuing to resolve these circular dependencies while maintaining the modular structure. Potential approaches include:
 - Implementing a sequential update scheme
 - Using previous timestep values for return flows
-- Developing a hybrid approach that preserves modularity while handling circular dependencies
+- Having larger modules to avoid circular depenency 
 
 For now, users can explore the system behavior using `run_simulation.py` with return flows disabled, or use the complete solution in `run_PBPK.py`.
 
