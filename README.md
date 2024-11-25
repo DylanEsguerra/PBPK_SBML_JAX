@@ -20,18 +20,18 @@ This repository contains a JAX-based implementation of the Physiologically Based
   - Implements organ-based modularization
   - Handles coupling between different organ modules
   - Uses Diffrax for solving the coupled system
+  - Passes shared species concentrations between modules within ODE solver 
 
 - `src/run_simulation_2.py`: Enhanced modular implementation
   - Uses `ModuleRegistry` for managing organ modules
   - Provides more flexible module addition and coupling
-  - Supports dynamic module dependencies
+    
 
 ### Module Components
 Each organ module follows a similar structure:
 - SBML model creation (`*_sbml.py`)
 - Parameter handling
 - JAX code generation
-- Solver implementation
 
 Modules include:
 - Blood
@@ -81,13 +81,13 @@ The modular version separates the model into individual organ modules that can b
 
 ## Parameter Files
 - Located in `parameters/` directory
-- Organ-specific parameters in Excel/CSV format
-- Global parameters for the full model
+- Organ-specific parameters in Excel format 
+- Global parameters for the full model stored in a CSV file
 
 ## Generated Files
 - SBML models: `generated/sbml/`
 - JAX code: `generated/jax/`
 
 ## References
-Chang et al. 2019 [Add full citation]
+Chang HY, Wu S, Meno-Tetang G, Shah DK. A translational platform PBPK model for antibody disposition in the brain. J Pharmacokinet Pharmacodyn. 2019 Aug;46(4):319-338. doi: 10.1007/s10928-019-09641-8. Epub 2019 May 21. PMID: 31115858; PMCID: PMC8409011.
 
