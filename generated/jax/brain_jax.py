@@ -14,7 +14,7 @@ y_indexes = {'C_p_brain': 0, 'C_BBB_unbound_brain': 1, 'C_BBB_bound_brain': 2, '
 w0 = jnp.array([])
 w_indexes = {}
 
-c = jnp.array([0.0, 0.0, 0.0, 0.0, 214.5, 7.25, 275.0, 175.5, 7.25, 21453.0, 17553.0, 10.5, 24.0, 0.1, 0.01, 26.6, 0.03, 0.15, 0.15, 1.0, 0.5, 0.9974, 0.2, 215.0, 214.5, 7.25, 7.25, 275.0, 175.5]) 
+c = jnp.array([0.0, 0.0, 0.0, 0.0, 31.9, 0.1, 261.0, 26.1, 7.25, 36402.0, 29810.0, 10.5, 21.0, 559000000.0, 23.9, 26.6, 0.3, 0.95, 0.715, 1.0, 0.95, 0.9974, 0.2, 73.0, 31.9, 0.1, 0.1, 261.0, 26.1]) 
 c_indexes = {'C_p_lung': 0, 'C_bc_lung': 1, 'C_SAS_brain': 2, 'C_BCSFB_bound_brain': 3, 'Vp_brain': 4, 'VBBB_brain': 5, 'VIS_brain': 6, 'VBC_brain': 7, 'V_ES_brain': 8, 'Q_p_brain': 9, 'Q_bc_brain': 10, 'Q_ISF_brain': 11, 'Q_CSF_brain': 12, 'kon_FcRn': 13, 'koff_FcRn': 14, 'kdeg': 15, 'CLup_brain': 16, 'f_BBB': 17, 'FR': 18, 'FcRn_free_BBB': 19, 'sigma_V_BBB': 20, 'sigma_V_BCSFB': 21, 'sigma_L_brain_ISF': 22, 'L_brain': 23, 'brain_plasma': 24, 'BBB_unbound': 25, 'BBB_bound': 26, 'brain_ISF': 27, 'brain_blood_cells': 28}
 
 class RateofSpeciesChange(eqx.Module):
@@ -37,19 +37,19 @@ class RateofSpeciesChange(eqx.Module):
 		return reactionVelocities
 
 	def RateC_p_brain(self, y, w, c, t):
-		return (1 / c[4]) * ((c[9] * c[0] - (c[9] - c[23]) * (y[0]/214.5) - (1 - c[20]) * c[11] * (y[0]/214.5) - (1 - c[21]) * c[12] * (y[0]/214.5) - c[16] * c[8] * (y[0]/214.5)) + c[16] * c[17] * c[8] * c[18] * (y[2]/7.25) + c[16] * (1 - c[17]) * c[8] * c[18] * c[3])
+		return (1 / c[4]) * ((c[9] * c[0] - (c[9] - c[23]) * (y[0]/31.9) - (1 - c[20]) * c[11] * (y[0]/31.9) - (1 - c[21]) * c[12] * (y[0]/31.9) - c[16] * c[8] * (y[0]/31.9)) + c[16] * c[17] * c[8] * c[18] * (y[2]/0.1) + c[16] * (1 - c[17]) * c[8] * c[18] * c[3])
 
 	def RateC_BBB_unbound_brain(self, y, w, c, t):
-		return (1 / c[5]) * ((c[16] * c[17] * c[8] * ((y[0]/214.5) + (y[3]/275.0)) - c[5] * c[13] * (y[1]/7.25) * c[19]) + c[5] * c[14] * (y[2]/7.25) - c[5] * c[15] * (y[1]/7.25))
+		return (1 / c[5]) * ((c[16] * c[17] * c[8] * ((y[0]/31.9) + (y[3]/261.0)) - c[5] * c[13] * (y[1]/0.1) * c[19]) + c[5] * c[14] * (y[2]/0.1) - c[5] * c[15] * (y[1]/0.1))
 
 	def RateC_BBB_bound_brain(self, y, w, c, t):
-		return (1 / c[5]) * (-c[16] * c[17] * c[8] * (y[2]/7.25) + c[5] * c[13] * (y[1]/7.25) * c[19] - c[5] * c[14] * (y[2]/7.25))
+		return (1 / c[5]) * (-c[16] * c[17] * c[8] * (y[2]/0.1) + c[5] * c[13] * (y[1]/0.1) * c[19] - c[5] * c[14] * (y[2]/0.1))
 
 	def RateC_is_brain(self, y, w, c, t):
-		return (1 / c[6]) * (((1 - c[20]) * c[11] * (y[0]/214.5) - (1 - c[22]) * c[11] * (y[3]/275.0) - c[11] * (y[3]/275.0)) + c[11] * c[2] + c[16] * c[17] * c[8] * (1 - c[18]) * (y[2]/7.25) - c[16] * c[17] * c[8] * (y[3]/275.0))
+		return (1 / c[6]) * (((1 - c[20]) * c[11] * (y[0]/31.9) - (1 - c[22]) * c[11] * (y[3]/261.0) - c[11] * (y[3]/261.0)) + c[11] * c[2] + c[16] * c[17] * c[8] * (1 - c[18]) * (y[2]/0.1) - c[16] * c[17] * c[8] * (y[3]/261.0))
 
 	def RateC_bc_brain(self, y, w, c, t):
-		return (1 / c[7]) * (c[10] * c[1] - c[10] * (y[4]/175.5))
+		return (1 / c[7]) * (c[10] * c[1] - c[10] * (y[4]/26.1))
 
 class AssignmentRule(eqx.Module):
 	@jit
@@ -95,7 +95,7 @@ class ModelRollout(eqx.Module):
 		self.modelstepfunc = ModelStep(atol=atol, rtol=rtol, mxstep=mxstep)
 
 	@partial(jit, static_argnames=("n_steps",))
-	def __call__(self, n_steps, y0=jnp.array([0.0, 0.0, 0.0, 0.0, 0.0]), w0=jnp.array([]), c=jnp.array([0.0, 0.0, 0.0, 0.0, 214.5, 7.25, 275.0, 175.5, 7.25, 21453.0, 17553.0, 10.5, 24.0, 0.1, 0.01, 26.6, 0.03, 0.15, 0.15, 1.0, 0.5, 0.9974, 0.2, 215.0, 214.5, 7.25, 7.25, 275.0, 175.5]), t0=0.0):
+	def __call__(self, n_steps, y0=jnp.array([0.0, 0.0, 0.0, 0.0, 0.0]), w0=jnp.array([]), c=jnp.array([0.0, 0.0, 0.0, 0.0, 31.9, 0.1, 261.0, 26.1, 7.25, 36402.0, 29810.0, 10.5, 21.0, 559000000.0, 23.9, 26.6, 0.3, 0.95, 0.715, 1.0, 0.95, 0.9974, 0.2, 73.0, 31.9, 0.1, 0.1, 261.0, 26.1]), t0=0.0):
 
 		@jit
 		def f(carry, x):
