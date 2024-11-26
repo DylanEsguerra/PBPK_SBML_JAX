@@ -1,11 +1,9 @@
 """
 Simulation runner for the PBPK model using a modular approach.
 This file handles the setup of coupled systems, running simulations, and plotting results
-for individual organ modules (blood, lung, brain, CSF, liver). This version uses a more
-rigid coupling structure compared to run_simulation_2.py.
+for individual organ modules (blood, lung, brain, CSF, liver). 
 
-Note: This file is preferred implementation for testing and debugging circular dependencies, 
-but run_simulation_2.py is the eventual goal for a fully modular implementation.
+This version uses the consolidated parameter file (pbpk_parameters.csv).
 """
 
 import jax
@@ -18,14 +16,15 @@ import matplotlib.pyplot as plt
 import importlib
 from pathlib import Path
 import sys
-from main_2 import main, load_module_params
+import pandas as pd
+
 # Add the project root to Python path
 project_root = str(Path(__file__).parent.parent)
 sys.path.append(project_root)
-from src.main_2 import main, load_module_params
+from src.main_b import main, load_all_params
 
 def setup_coupled_system(registry, models, all_params):
-     # Define state indices
+    # Define state indices
     blood_indices = slice(0, 3)      # [C_p, C_bc, C_ln]
     lung_indices = slice(3, 9)       # [C_p_lung, C_bc_lung, C_e_unbound_lung, C_e_bound_lung, C_is_lung, FcRn_free_lung]
     brain_indices = slice(9, 14)     # [C_p_brain, C_BBB_unbound_brain, C_BBB_bound_brain, C_is_brain, C_bc_brain]
@@ -91,42 +90,64 @@ def run_simulation():
     # Initialize registry and process modules
     registry = main()
     
-    # Get models and parameters in fixed order
-    models = {}
-    all_params = {}
+    # Load parameters from CSV
+    params_df = pd.read_csv('parameters/pbpk_parameters.csv')
     
-    for module_name in ['blood', 'lung', 'brain', 'csf', 'liver']:  # Fixed order
-        config = registry.modules[module_name]
+    # Get models in fixed order
+    models = {}
+    for module_name in ['blood', 'lung', 'brain', 'csf', 'liver']:
         model_module = importlib.import_module(f"generated.jax.{module_name}_jax")
         importlib.reload(model_module)
         models[module_name] = model_module
-        all_params[module_name] = load_module_params(config)
     
     # Create coupled system
-    coupled_system = setup_coupled_system(registry, models, all_params)
+    coupled_system = setup_coupled_system(registry, models, params_df)
     
-    # Load initial conditions from each model in fixed order
-    y0_combined = jnp.concatenate([
-        models['blood'].y0,
-        models['lung'].y0,
-        models['brain'].y0,
-        models['csf'].y0,
-        models['liver'].y0
+    # Get initial conditions in correct order
+    y0_combined = jnp.array([
+        # Blood
+        params_df[params_df['name'] == 'C_p_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_bc_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_ln_0']['value'].iloc[0],
+        # Lung
+        params_df[params_df['name'] == 'C_p_lung_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_bc_lung_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_e_unbound_lung_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_e_bound_lung_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_is_lung_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'FcRn_free_lung_0']['value'].iloc[0],
+        # Brain
+        params_df[params_df['name'] == 'C_p_brain_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_BBB_unbound_brain_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_BBB_bound_brain_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_is_brain_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_bc_brain_0']['value'].iloc[0],
+        # CSF
+        params_df[params_df['name'] == 'C_BCSFB_unbound_brain_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_BCSFB_bound_brain_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_LV_brain_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_TFV_brain_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_CM_brain_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_SAS_brain_0']['value'].iloc[0],
+        # Liver
+        params_df[params_df['name'] == 'C_p_liver_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_bc_liver_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_e_unbound_liver_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_e_bound_liver_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'C_is_liver_0']['value'].iloc[0],
+        params_df[params_df['name'] == 'FcRn_free_liver_0']['value'].iloc[0]
     ])
     
     # Simulation parameters
-    t0 = 0.0
-    t1 = 2000.0
+    t0, t1 = 0.0, 2000.0
     dt = 0.01
     n_steps = 2000
     
-    # Create solver
+    # Solve system
     term = diffrax.ODETerm(coupled_system)
     solver = diffrax.Tsit5()
     saveat = diffrax.SaveAt(ts=jnp.linspace(t0, t1, n_steps))
-
     
-    # Solve system
     sol = diffrax.diffeqsolve(
         term,
         solver,
@@ -136,7 +157,7 @@ def run_simulation():
         y0=y0_combined,
         args=(None,),
         saveat=saveat,
-        max_steps=None,
+        max_steps=None
     )
     
     return sol, registry

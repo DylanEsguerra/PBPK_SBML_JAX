@@ -130,7 +130,7 @@ def create_consolidated_params_csv():
             'Q_bc_SI', 'Q_bc_LI', 'Q_bc_spleen', 'Q_bc_pancreas', 'Q_bc_other',
             
             # CSF and ISF flows
-            'Q_CSF_brain', 'Q_ISF_brain',
+            'Q_CSF_brain', 'Q_ISF_brain', 'Q_ECF_brain',
             
             # Lymph flows
             'L_lung', 'L_brain', 'L_heart', 'L_liver', 'L_kidney',
@@ -149,14 +149,14 @@ def create_consolidated_params_csv():
             10130, 10530, 5190, 2500, 4520,
             
             # CSF and ISF flows
-            21.0, 10.5,  # table 2
+            21.0, 10.5, 10.5,  # table 2
             
             # Lymph flows (typically 0.2% of plasma flow)
             364, 73, 16, 26, 65,
             67, 23, 17, 5, 1,
             25, 26, 13, 6, 11, 500  # L_LN value may need adjustment
         ],
-        'units': ['mL/h'] * 48,
+        'units': ['mL/h'] * 49,
         'description': [
             # Plasma flows
             'Lung plasma flow rate', 'Brain plasma flow rate', 'Heart plasma flow rate',
@@ -177,7 +177,7 @@ def create_consolidated_params_csv():
             'Other organs blood cell flow rate',
             
             # CSF and ISF flows
-            'CSF flow rate', 'Brain ISF flow rate',
+            'CSF flow rate', 'Brain ISF flow rate', 'Cerebral ISF production rate',
             
             # Lymph flows
             'Lung lymph flow rate', 'Brain lymph flow rate', 'Heart lymph flow rate',
@@ -221,7 +221,7 @@ def create_consolidated_params_csv():
             'sigma_L_SAS', 'sigma_L_other',
             
             # Other parameters
-            'FR', 'f_BBB', 'f_LV', 'FcRn_free_BBB', 'FcRn_free_BCSFB'
+            'FR', 'f_BBB', 'f_LV', 'f_BCSFB', 'FcRn_free_BBB', 'FcRn_free_BCSFB'
         ],
         'value': [
             # FcRn kinetics
@@ -245,9 +245,9 @@ def create_consolidated_params_csv():
             0.2, 0.2,
                 
             # Other parameters
-            0.715, 0.95, 0.2, 1.0, 1.0  # FR = 0.715 from table
+            0.715, 0.95, 0.2, 0.2, 1.0, 1.0  # FR = 0.715 from table
         ],
-        'units': ['1/M/h'] + ['1/h'] * 2 + ['L/h/L'] * 15 + ['dimensionless'] * 39,
+        'units': ['1/M/h'] + ['1/h'] * 2 + ['L/h/L'] * 15 + ['dimensionless'] * 40,
         'description': [
             # FcRn kinetics
             'FcRn binding rate constant', 'FcRn unbinding rate constant',
@@ -291,6 +291,7 @@ def create_consolidated_params_csv():
             # Other parameters
             'Recycling fraction', 'BBB permeability', 
             'Lateral ventricle flow fraction',  # Added description
+            'BCSFB permiability',
             'Initial BBB FcRn free concentration',  # Added description
             'Initial BCSFB FcRn free concentration'  # Added description
         ]

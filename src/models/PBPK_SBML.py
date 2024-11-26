@@ -123,6 +123,7 @@ def create_pbpk_model(params, params_with_units):
         ("CLup_brain", params["CLup_brain"]),
         ("Q_CSF_brain", params["Q_CSF_brain"]),    
         ("Q_ISF_brain", params["Q_ISF_brain"]),
+        ("Q_ECF_brain", params["Q_ECF_brain"]),
         ("sigma_V_BBB", params["sigma_V_BBB"]),
         ("sigma_V_BCSFB", params["sigma_V_BCSFB"]),
        
@@ -164,6 +165,7 @@ def create_pbpk_model(params, params_with_units):
         ("FR", params["FR"]),                   # Global recycling fraction
         ("f_BBB", params["f_BBB"]),
         ("f_LV", params["f_LV"]),
+        ("f_BCSFB", params["f_BCSFB"]),
         ("FcRn_free_BBB", params["FcRn_free_BBB"]),
         ("FcRn_free_BCSFB", params["FcRn_free_BCSFB"]),
     ]
@@ -236,81 +238,7 @@ def create_pbpk_model(params, params_with_units):
         
     ]
 
-    # Add parameters for constant concentrations (using initial values)
 
-    '''
-    constant_concentrations = [
-        # Heart
-        ("C_p_heart", params["C_p_heart_0"]),
-        ("C_bc_heart", params["C_bc_heart_0"]),
-        ("C_is_heart", params["C_is_heart_0"]),
-        
-        # Kidney
-        ("C_p_kidney", params["C_p_kidney_0"]),
-        ("C_bc_kidney", params["C_bc_kidney_0"]),
-        ("C_is_kidney", params["C_is_kidney_0"]),
-        
-        # Muscle
-        ("C_p_muscle", params["C_p_muscle_0"]),
-        ("C_bc_muscle", params["C_bc_muscle_0"]),
-        ("C_is_muscle", params["C_is_muscle_0"]),
-        
-        # Marrow
-        ("C_p_marrow", params["C_p_marrow_0"]),
-        ("C_bc_marrow", params["C_bc_marrow_0"]),
-        ("C_is_marrow", params["C_is_marrow_0"]),
-        
-        # Thymus
-        ("C_p_thymus", params["C_p_thymus_0"]),
-        ("C_bc_thymus", params["C_bc_thymus_0"]),
-        ("C_is_thymus", params["C_is_thymus_0"]),
-        
-        # Skin
-        ("C_p_skin", params["C_p_skin_0"]),
-        ("C_bc_skin", params["C_bc_skin_0"]),
-        ("C_is_skin", params["C_is_skin_0"]),
-        
-        # Fat
-        ("C_p_fat", params["C_p_fat_0"]),
-        ("C_bc_fat", params["C_bc_fat_0"]),
-        ("C_is_fat", params["C_is_fat_0"]),
-        
-        # Spleen
-        ("C_p_spleen", params["C_p_spleen_0"]),
-        ("C_bc_spleen", params["C_bc_spleen_0"]),
-        ("C_is_spleen", params["C_is_spleen_0"]),
-        
-        # Pancreas
-        ("C_p_pancreas", params["C_p_pancreas_0"]),
-        ("C_bc_pancreas", params["C_bc_pancreas_0"]),
-        ("C_is_pancreas", params["C_is_pancreas_0"]),
-        
-        # Small Intestine
-        ("C_p_SI", params["C_p_SI_0"]),
-        ("C_bc_SI", params["C_bc_SI_0"]),
-        ("C_is_SI", params["C_is_SI_0"]),
-        
-        # Large Intestine
-        ("C_p_LI", params["C_p_LI_0"]),
-        ("C_bc_LI", params["C_bc_LI_0"]),
-        ("C_is_LI", params["C_is_LI_0"]),
-        
-        # Other
-        ("C_p_other", params["C_p_other_0"]),
-        ("C_bc_other", params["C_bc_other_0"]),
-        ("C_is_other", params["C_is_other_0"])
-    ]
-    
-
-    # Create parameters for constant concentrations
-    for param_id, value in constant_concentrations:
-        param = model.createParameter()
-        param.setId(param_id)
-        param.setValue(value)
-        param.setConstant(True)
-        param.setUnits("mole_per_litre")
-    
-    '''
     # Add compartments for standard organs
     for organ in standard_organs:
         
@@ -397,23 +325,24 @@ def create_pbpk_model(params, params_with_units):
     # Lymph node equation
     ln_rule = model.createRateRule()
     ln_rule.setVariable("C_ln")
+
     ln_eq = (
         f"(1-sigma_L_lung) * L_lung * C_is_lung + "
-        f"(1-sigma_L_heart) * L_heart * C_is_heart + "  # Constant for now
-        f"(1-sigma_L_kidney) * L_kidney * C_is_kidney + "  # Constant for now
+        f"(1-sigma_L_heart) * L_heart * C_is_heart + "
+        f"(1-sigma_L_kidney) * L_kidney * C_is_kidney + "
         f"(1-sigma_L_SAS) * Q_CSF_brain * C_SAS_brain + "
-        f"(1-sigma_L_brain_ISF) * Q_ISF_brain * C_is_brain + "
-        f"(1-sigma_L_muscle) * L_muscle * C_is_muscle + "  # Constant for now
-        f"(1-sigma_L_marrow) * L_marrow * C_is_marrow + "  # Constant for now
-        f"(1-sigma_L_thymus) * L_thymus * C_is_thymus + "  # Constant for now
-        f"(1-sigma_L_skin) * L_skin * C_is_skin + "  # Constant for now
-        f"(1-sigma_L_fat) * L_fat * C_is_fat + "  # Constant for now
-        f"(1-sigma_L_SI) * L_SI * C_is_SI + "  # Constant for now
-        f"(1-sigma_L_LI) * L_LI * C_is_LI + "  # Constant for now
-        f"(1-sigma_L_spleen) * L_spleen * C_is_spleen + "  # Constant for now
-        f"(1-sigma_L_pancreas) * L_pancreas * C_is_pancreas + "  # Constant for now
+        f"(1-sigma_L_brain_ISF) * Q_ECF_brain * C_is_brain + "
+        f"(1-sigma_L_muscle) * L_muscle * C_is_muscle + "
+        f"(1-sigma_L_marrow) * L_marrow * C_is_marrow + "
+        f"(1-sigma_L_thymus) * L_thymus * C_is_thymus + "
+        f"(1-sigma_L_skin) * L_skin * C_is_skin + "
+        f"(1-sigma_L_fat) * L_fat * C_is_fat + "
+        f"(1-sigma_L_SI) * L_SI * C_is_SI + "
+        f"(1-sigma_L_LI) * L_LI * C_is_LI + "
+        f"(1-sigma_L_spleen) * L_spleen * C_is_spleen + "
+        f"(1-sigma_L_pancreas) * L_pancreas * C_is_pancreas + "
         f"(1-sigma_L_liver) * L_liver * C_is_liver + "
-        f"(1-sigma_L_other) * L_other * C_is_other - "  # Constant for now
+        f"(1-sigma_L_other) * L_other * C_is_other - "
         f"L_LN * C_ln"
     )
     math_ast = libsbml.parseL3Formula(f"1/Vlymphnode * ({ln_eq})")
@@ -544,8 +473,12 @@ def create_pbpk_model(params, params_with_units):
     # BCSFB Unbound equation
     bcsfb_unbound_rule = model.createRateRule()
     bcsfb_unbound_rule.setVariable("C_BCSFB_unbound_brain")
+    
+
     bcsfb_unbound_eq = (
-        f"CLup_brain * (1-f_BBB) * V_ES_brain * (C_p_brain + C_LV_brain + C_TFV_brain) - "
+        f"CLup_brain * f_BCSFB * V_ES_brain * C_p_brain + "
+        f"f_LV * CLup_brain * (1 - f_BBB) * V_ES_brain * C_LV_brain + "
+        f"(1 - f_LV) * CLup_brain * (1 - f_BBB) * V_ES_brain * C_TFV_brain - "
         f"V_BCSFB_brain * kon_FcRn * C_BCSFB_unbound_brain * FcRn_free_BCSFB + "
         f"V_BCSFB_brain * koff_FcRn * C_BCSFB_bound_brain - "
         f"V_BCSFB_brain * kdeg * C_BCSFB_unbound_brain"

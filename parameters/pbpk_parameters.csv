@@ -100,6 +100,7 @@ Q_bc_pancreas,2500.0,mL/h,Pancreas blood cell flow rate
 Q_bc_other,4520.0,mL/h,Other organs blood cell flow rate
 Q_CSF_brain,21.0,mL/h,CSF flow rate
 Q_ISF_brain,10.5,mL/h,Brain ISF flow rate
+Q_ECF_brain,10.5,mL/h,Cerebral ISF production rate
 L_lung,364.0,mL/h,Lung lymph flow rate
 L_brain,73.0,mL/h,Brain lymph flow rate
 L_heart,16.0,mL/h,Heart lymph flow rate
@@ -171,6 +172,7 @@ sigma_L_other,0.2,dimensionless,Other organs lymphatic reflection coefficient
 FR,0.715,dimensionless,Recycling fraction
 f_BBB,0.95,dimensionless,BBB permeability
 f_LV,0.2,dimensionless,Lateral ventricle flow fraction
+f_BCSFB,0.2,dimensionless,BCSFB permiability
 FcRn_free_BBB,1.0,dimensionless,Initial BBB FcRn free concentration
 FcRn_free_BCSFB,1.0,dimensionless,Initial BCSFB FcRn free concentration
 C_p_0,4.516314779270633,nM/mL,Initial plasma concentration (C_p_0)
