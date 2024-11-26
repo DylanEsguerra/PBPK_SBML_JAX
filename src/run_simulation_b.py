@@ -30,7 +30,7 @@ def setup_coupled_system(registry, models, all_params):
     brain_indices = slice(9, 14)     # [C_p_brain, C_BBB_unbound_brain, C_BBB_bound_brain, C_is_brain, C_bc_brain]
     csf_indices = slice(14, 20)      # [C_BCSFB_unbound_brain, C_BCSFB_bound_brain, C_LV_brain, C_TFV_brain, C_CM_brain, C_SAS_brain]
     liver_indices = slice(20, 26)    # [C_p_liver, C_bc_liver, C_e_unbound_liver, C_e_bound_liver, C_is_liver, FcRn_free_liver]
-
+    
     @jit
     def coupled_system(t, y, args):
         # Split states
@@ -40,7 +40,7 @@ def setup_coupled_system(registry, models, all_params):
         csf_states = y[csf_indices]
         liver_states = y[liver_indices]
         
-        # Get initial parameters
+        # Get parameters
         blood_params = models['blood'].c
         lung_params = models['lung'].c
         brain_params = models['brain'].c
@@ -78,10 +78,11 @@ def setup_coupled_system(registry, models, all_params):
         dy_brain_dt = models['brain'].RateofSpeciesChange()(brain_states, t, {}, brain_params)
         dy_csf_dt = models['csf'].RateofSpeciesChange()(csf_states, t, {}, csf_params)
         dy_liver_dt = models['liver'].RateofSpeciesChange()(liver_states, t, {}, liver_params)
-        
-        # Combine derivatives in static order
+
+        # Combine derivatives
         dy_dt = jnp.concatenate([dy_blood_dt, dy_lung_dt, dy_brain_dt, dy_csf_dt, dy_liver_dt])
-            
+        #dy_dt = jnp.nan_to_num(dy_dt, nan=0.0)
+
         return dy_dt
 
     return coupled_system
@@ -104,50 +105,26 @@ def run_simulation():
     coupled_system = setup_coupled_system(registry, models, params_df)
     
     # Get initial conditions in correct order
-    y0_combined = jnp.array([
-        # Blood
-        params_df[params_df['name'] == 'C_p_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_bc_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_ln_0']['value'].iloc[0],
-        # Lung
-        params_df[params_df['name'] == 'C_p_lung_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_bc_lung_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_e_unbound_lung_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_e_bound_lung_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_is_lung_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'FcRn_free_lung_0']['value'].iloc[0],
-        # Brain
-        params_df[params_df['name'] == 'C_p_brain_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_BBB_unbound_brain_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_BBB_bound_brain_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_is_brain_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_bc_brain_0']['value'].iloc[0],
-        # CSF
-        params_df[params_df['name'] == 'C_BCSFB_unbound_brain_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_BCSFB_bound_brain_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_LV_brain_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_TFV_brain_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_CM_brain_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_SAS_brain_0']['value'].iloc[0],
-        # Liver
-        params_df[params_df['name'] == 'C_p_liver_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_bc_liver_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_e_unbound_liver_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_e_bound_liver_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'C_is_liver_0']['value'].iloc[0],
-        params_df[params_df['name'] == 'FcRn_free_liver_0']['value'].iloc[0]
+    y0_combined = jnp.concatenate([
+        models['blood'].y0,
+        models['lung'].y0,
+        models['brain'].y0,
+        models['csf'].y0,
+        models['liver'].y0
     ])
     
     # Simulation parameters
-    t0, t1 = 0.0, 2000.0
-    dt = 0.01
+    t0 = 0.0
+    t1 = 2000
+    dt = 0.0002
     n_steps = 2000
     
-    # Solve system
+    # Create diffrax solver
     term = diffrax.ODETerm(coupled_system)
-    solver = diffrax.Tsit5()
+    solver = diffrax.Kvaerno5()
     saveat = diffrax.SaveAt(ts=jnp.linspace(t0, t1, n_steps))
-    
+
+    # Solve the ODE system
     sol = diffrax.diffeqsolve(
         term,
         solver,
@@ -157,8 +134,10 @@ def run_simulation():
         y0=y0_combined,
         args=(None,),
         saveat=saveat,
-        max_steps=None
+        max_steps=1000000,
+        stepsize_controller=diffrax.PIDController(rtol=1e-8, atol=1e-8)
     )
+    
     
     return sol, registry
 
