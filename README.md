@@ -43,6 +43,12 @@ The project offers two implementation approaches:
   - Uses ModuleRegistry for organ management
   - Handles module dependencies and coupling
   - Coordinates the multi-organ simulation
+- `src/run_simulation_b.py`: Consolidated parameter solver (Recommended)
+  - Uses single parameter file
+  - Improved module coupling
+  - Streamlined implementation
+
+
 
 - `src/models/[organ]/*`: Organ-specific modules
   - `[organ]_sbml.py`: SBML model generator
@@ -52,8 +58,10 @@ Current modules:
 [Blood, Brain, CSF, Lung, Liver]
 
 ## Parameter Organization
-- Global parameters: `parameters/pbpk_parameters.csv`
-- Organ-specific parameters: `parameters/[organ]_params.xlsx`
+- Global parameters: `parameters/pbpk_parameters.csv` (Recommended)
+  - Consolidated parameter file
+  - Used by `*_b.py` implementation
+- Organ-specific parameters: `parameters/[organ]_params.xlsx` (Legacy)
   - Volumes
   - Flows
   - Kinetics
@@ -76,6 +84,11 @@ python src/run_PBPK.py
 ### Running the Modular Implementation
 ```bash
 python src/run_simulation.py
+```
+
+### Running with Consolidated Parameters (Recommended)
+```bash
+python src/run_simulation_b.py
 ```
 
 ## Dependencies
@@ -146,6 +159,24 @@ Work is continuing to resolve these circular dependencies while maintaining the 
 - Having larger modules to avoid circular depenency 
 
 For now, users can explore the system behavior using `run_simulation.py` with return flows disabled, or use the complete solution in `run_PBPK.py`.
+
+### Implementation Approaches
+
+The project now offers three implementation approaches:
+
+1. **Core Implementation** (`run_PBPK.py`)
+   - Single system solution
+   - Complete PBPK model
+   - Simultaneous concentration updates
+
+2. **Original Modular Implementation** (`run_simulation.py`, `run_simulation_2.py`)
+   - Separate organ modules
+   - Explicit dependency handling
+   - Useful for debugging circular dependencies
+
+3. **Consolidated Modular Implementation** (`run_simulation_b.py`)
+   - Single parameter file
+   - Recommended for new development
 
 
 
