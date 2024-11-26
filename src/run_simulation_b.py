@@ -116,7 +116,7 @@ def run_simulation():
     # Simulation parameters
     t0 = 0.0
     t1 = 2000
-    dt = 0.0002
+    dt = 0.001
     n_steps = 2000
     
     # Create diffrax solver
