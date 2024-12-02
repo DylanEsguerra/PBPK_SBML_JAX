@@ -14,7 +14,7 @@ y_indexes = {'C_p_brain': 0, 'C_BBB_unbound_brain': 1, 'C_BBB_bound_brain': 2, '
 w0 = jnp.array([])
 w_indexes = {}
 
-c = jnp.array([0.0, 0.0, 0.0, 0.0, 31.9, 0.1, 261.0, 26.1, 7.25, 36402.0, 29810.0, 10.5, 21.0, 559000000.0, 23.9, 26.6, 0.3, 0.95, 0.715, 1.0, 0.95, 0.9974, 0.2, 73.0, 31.9, 0.1, 0.1, 261.0, 26.1]) 
+c = jnp.array([4.51631477927063, 0.0, 0.0, 0.0, 31.9, 0.1, 261.0, 26.1, 7.25, 36402.0, 29810.0, 10.5, 21.0, 559000000.0, 23.9, 26.6, 0.3, 0.95, 0.715, 1.0, 0.95, 0.9974, 0.2, 73.0, 31.9, 0.1, 0.1, 261.0, 26.1]) 
 c_indexes = {'C_p_lung': 0, 'C_bc_lung': 1, 'C_SAS_brain': 2, 'C_BCSFB_bound_brain': 3, 'Vp_brain': 4, 'VBBB_brain': 5, 'VIS_brain': 6, 'VBC_brain': 7, 'V_ES_brain': 8, 'Q_p_brain': 9, 'Q_bc_brain': 10, 'Q_ISF_brain': 11, 'Q_CSF_brain': 12, 'kon_FcRn': 13, 'koff_FcRn': 14, 'kdeg': 15, 'CLup_brain': 16, 'f_BBB': 17, 'FR': 18, 'FcRn_free_BBB': 19, 'sigma_V_BBB': 20, 'sigma_V_BCSFB': 21, 'sigma_L_brain_ISF': 22, 'L_brain': 23, 'brain_plasma': 24, 'BBB_unbound': 25, 'BBB_bound': 26, 'brain_ISF': 27, 'brain_blood_cells': 28}
 
 class RateofSpeciesChange(eqx.Module):
@@ -95,7 +95,7 @@ class ModelRollout(eqx.Module):
 		self.modelstepfunc = ModelStep(atol=atol, rtol=rtol, mxstep=mxstep)
 
 	@partial(jit, static_argnames=("n_steps",))
-	def __call__(self, n_steps, y0=jnp.array([0.0, 0.0, 0.0, 0.0, 0.0]), w0=jnp.array([]), c=jnp.array([0.0, 0.0, 0.0, 0.0, 31.9, 0.1, 261.0, 26.1, 7.25, 36402.0, 29810.0, 10.5, 21.0, 559000000.0, 23.9, 26.6, 0.3, 0.95, 0.715, 1.0, 0.95, 0.9974, 0.2, 73.0, 31.9, 0.1, 0.1, 261.0, 26.1]), t0=0.0):
+	def __call__(self, n_steps, y0=jnp.array([0.0, 0.0, 0.0, 0.0, 0.0]), w0=jnp.array([]), c=jnp.array([4.51631477927063, 0.0, 0.0, 0.0, 31.9, 0.1, 261.0, 26.1, 7.25, 36402.0, 29810.0, 10.5, 21.0, 559000000.0, 23.9, 26.6, 0.3, 0.95, 0.715, 1.0, 0.95, 0.9974, 0.2, 73.0, 31.9, 0.1, 0.1, 261.0, 26.1]), t0=0.0):
 
 		@jit
 		def f(carry, x):

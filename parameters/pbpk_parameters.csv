@@ -175,10 +175,10 @@ f_LV,0.2,dimensionless,Lateral ventricle flow fraction
 f_BCSFB,0.2,dimensionless,BCSFB permiability
 FcRn_free_BBB,1.0,dimensionless,Initial BBB FcRn free concentration
 FcRn_free_BCSFB,1.0,dimensionless,Initial BCSFB FcRn free concentration
-C_p_0,4.516314779270633,nM/mL,Initial plasma concentration (C_p_0)
+C_p_0,0.0,nM/mL,Initial plasma concentration (C_p_0)
 C_bc_0,0.0,nM/mL,Initial blood cell concentration (C_bc_0)
 C_ln_0,0.0,nM/mL,Initial lymph node concentration (C_ln_0)
-C_p_lung_0,0.0,nM/mL,Initial lung plasma concentration (C_p_lung_0)
+C_p_lung_0,4.516314779270633,nM/mL,Initial lung plasma concentration (C_p_lung_0)
 C_p_brain_0,0.0,nM/mL,Initial brain plasma concentration (C_p_brain_0)
 C_p_heart_0,0.0,nM/mL,Initial heart plasma concentration (C_p_heart_0)
 C_p_liver_0,0.0,nM/mL,Initial liver plasma concentration (C_p_liver_0)
