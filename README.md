@@ -19,7 +19,6 @@ The project offers two complementary approaches:
 
 
 ### Full Implementation Workflow
-1. Parameter loading (`parameters/pbpk_parameters.csv`)
 2. SBML model generation (`src/models/PBPK_full_SBML.py`)
 3. JAX code generation (using SBMLtoODEjax)
 4. ODE solving with Diffrax (`src/run_full_PBPK_model.py`)
@@ -31,6 +30,11 @@ The project offers two complementary approaches:
 4. Coupled system solving
 
 ## File Structure and Functions
+
+### Parameter loading
+- `create_all_parameters.py`: Creates the parameter CSV file
+- `parameters/pbpk_parameters.csv`: Parameter values for the model
+
 
 ### Full Implementation Files
 - `src/run_full_PBPK_model.py`: Full model solver
