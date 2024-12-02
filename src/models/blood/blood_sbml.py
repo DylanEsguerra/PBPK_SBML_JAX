@@ -71,8 +71,22 @@ def create_blood_model(params):
 
     # Add coupling parameters (time-varying concentrations)
     coupling_params = [
+        # Currently Implemented Tissues
+
         # Lung coupling parameters
         ("C_is_lung", params["C_is_lung_0"]),
+        
+        # CSF coupling
+        ("C_SAS_brain", params["C_SAS_brain_0"]),
+
+        # Liver coupling 
+        ("C_is_liver", params["C_is_liver_0"]),
+        ("C_p_liver", params["C_p_liver_0"]),
+        ("C_bc_liver", params["C_bc_liver_0"]),
+
+
+        # Tissues need to be added 
+
         
         # Other organ plasma concentrations
         ("C_p_heart", params["C_p_heart_0"]),
@@ -110,14 +124,7 @@ def create_blood_model(params):
         ("C_is_spleen", params["C_is_spleen_0"]),
         ("C_is_pancreas", params["C_is_pancreas_0"]),
         ("C_is_other", params["C_is_other_0"]),
-        
-        # CSF coupling
-        ("C_SAS_brain", params["C_SAS_brain_0"]),
 
-        # Liver coupling 
-        ("C_is_liver", params["C_is_liver_0"]),
-        ("C_p_liver", params["C_p_liver_0"]),
-        ("C_bc_liver", params["C_bc_liver_0"])
     ]
 
     # Create coupling parameters

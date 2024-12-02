@@ -81,50 +81,165 @@ def run_simulation():
     return sol, master_module
 
 def plot_results(sol, master_module):
-    # Create figure with subplots for each organ system
-    fig = plt.figure(figsize=(20, 15))
-    gs = fig.add_gridspec(3, 2, hspace=0.3, wspace=0.3)
+    """Plot results from the master model simulation in the style of run_PBPK.py"""
+    # Create figure for non-typical compartments
+    fig1 = plt.figure(figsize=(15, 12))
+    gs1 = fig1.add_gridspec(3, 2, hspace=0.3, wspace=0.3)
     
-    # Define species groups for each organ
-    organ_species = {
-        'Blood': ['C_p', 'C_bc', 'C_ln'],
-        'Lung': ['C_p_lung', 'C_bc_lung', 'C_is_lung', 'C_e_unbound_lung', 'C_e_bound_lung'],
-        'Brain': ['C_p_brain', 'C_BBB_unbound_brain', 'C_BBB_bound_brain', 'C_is_brain', 'C_bc_brain'],
-        'CSF': ['C_BCSFB_unbound_brain', 'C_BCSFB_bound_brain', 'C_LV_brain', 'C_TFV_brain', 'C_CM_brain', 'C_SAS_brain'],
-        'Liver': ['C_p_liver', 'C_bc_liver', 'C_is_liver', 'C_e_unbound_liver', 'C_e_bound_liver']
-    }
+    # Blood compartments
+    ax1 = fig1.add_subplot(gs1[0, 0])
+    for species, label in zip(['C_p', 'C_bc', 'C_ln'], ['Plasma', 'Blood Cells', 'Lymph Node']):
+        ax1.semilogy(sol.ts, sol.ys[:, master_module.y_indexes[species]], label=label, linewidth=2)
+    ax1.set_xlabel('Time (hours)')
+    ax1.set_ylabel('Concentration')
+    ax1.set_title('Blood Compartments')
+    ax1.legend()
+    ax1.grid(True, alpha=0.3)
+
+    # Lung compartments
+    ax2 = fig1.add_subplot(gs1[0, 1])
+    lung_species = ['C_p_lung', 'C_bc_lung', 'C_is_lung', 'C_e_unbound_lung', 'C_e_bound_lung', 'FcRn_free_lung']
+    lung_labels = ['Plasma', 'Blood Cells', 'ISF', 'E Unbound', 'E Bound', 'FcRn Free']
+    for species, label in zip(lung_species, lung_labels):
+        ax2.semilogy(sol.ts, sol.ys[:, master_module.y_indexes[species]], label=label, linewidth=2)
+    ax2.set_xlabel('Time (hours)')
+    ax2.set_ylabel('Concentration')
+    ax2.set_title('Lung Compartments')
+    ax2.legend()
+    ax2.grid(True, alpha=0.3)
+
+    # Brain compartments
+    ax3 = fig1.add_subplot(gs1[1, 0])
+    brain_species = ['C_p_brain', 'C_BBB_unbound_brain', 'C_BBB_bound_brain', 'C_is_brain']
+    brain_labels = ['Plasma', 'BBB Unbound', 'BBB Bound', 'Brain ISF']
+    for species, label in zip(brain_species, brain_labels):
+        ax3.semilogy(sol.ts, sol.ys[:, master_module.y_indexes[species]], label=label, linewidth=2)
+    ax3.set_xlabel('Time (hours)')
+    ax3.set_ylabel('Concentration')
+    ax3.set_title('Brain Compartments')
+    ax3.legend()
+    ax3.grid(True, alpha=0.3)
+
+    # CSF compartments
+    ax4 = fig1.add_subplot(gs1[1, 1])
+    csf_species = ['C_BCSFB_unbound_brain', 'C_BCSFB_bound_brain', 'C_LV_brain', 
+                  'C_TFV_brain', 'C_CM_brain', 'C_SAS_brain']
+    csf_labels = ['BCSFB Unbound', 'BCSFB Bound', 'Lateral Ventricle',
+                 'Third/Fourth Ventricle', 'Cisterna Magna', 'Subarachnoid Space']
+    for species, label in zip(csf_species, csf_labels):
+        ax4.semilogy(sol.ts, sol.ys[:, master_module.y_indexes[species]], label=label, linewidth=2)
+    ax4.set_xlabel('Time (hours)')
+    ax4.set_ylabel('Concentration')
+    ax4.set_title('CSF Compartments')
+    ax4.legend()
+    ax4.grid(True, alpha=0.3)
+
+    # Liver compartments
+    ax5 = fig1.add_subplot(gs1[2, 0])
+    liver_species = ['C_p_liver', 'C_bc_liver', 'C_is_liver', 
+                    'C_e_unbound_liver', 'C_e_bound_liver', 'FcRn_free_liver']
+    liver_labels = ['Plasma', 'Blood Cells', 'ISF', 'E Unbound', 'E Bound', 'FcRn Free']
+    for species, label in zip(liver_species, liver_labels):
+        ax5.semilogy(sol.ts, sol.ys[:, master_module.y_indexes[species]], label=label, linewidth=2)
+    ax5.set_xlabel('Time (hours)')
+    ax5.set_ylabel('Concentration')
+    ax5.set_title('Liver Compartments')
+    ax5.legend()
+    ax5.grid(True, alpha=0.3)
+
+    # Save non-typical tissues figure
+    fig1.savefig('concentration_plots_nontypical.png', dpi=300, bbox_inches='tight')
+
+    # Create figure for typical compartments
+    fig2 = plt.figure(figsize=(15, 12))
+    gs2 = fig2.add_gridspec(4, 3, hspace=0.4, wspace=0.3)
+
+    typical_organs = [
+        ('Heart', 'heart'), ('Muscle', 'muscle'), ('Kidney', 'kidney'),
+        ('Skin', 'skin'), ('Fat', 'fat'), ('Marrow', 'marrow'),
+        ('Thymus', 'thymus'), ('SI', 'SI'), ('LI', 'LI'),
+        ('Spleen', 'spleen'), ('Pancreas', 'pancreas'), ('Other', 'other')
+    ]
+
+    # Create subplots for each typical organ
+    lines = []  # Store lines for the legend
+    labels = ['Plasma', 'Blood Cells', 'ISF', 'E Unbound', 'E Bound', 'FcRn Free']
     
-    # Plot each organ system
-    for idx, (organ, species_list) in enumerate(organ_species.items()):
-        row = idx // 2
-        col = idx % 2
-        ax = fig.add_subplot(gs[row, col])
+    for i, (organ_name, organ_id) in enumerate(typical_organs):
+        row = i // 3
+        col = i % 3
         
-        # Get indices for each species
-        indices = [master_module.y_indexes[species] for species in species_list]
+        ax = fig2.add_subplot(gs2[row, col])
+        species_list = [
+            f'C_p_{organ_id}', f'C_bc_{organ_id}', f'C_is_{organ_id}',
+            f'C_e_unbound_{organ_id}', f'C_e_bound_{organ_id}', f'FcRn_free_{organ_id}'
+        ]
         
-        # Plot each species
-        for idx, label in zip(indices, species_list):
-            ax.semilogy(sol.ts, sol.ys[:, idx], label=label, linewidth=2)
+        # Plot lines and store them for the legend
+        plot_lines = []
+        for species, label in zip(species_list, labels):
+            line = ax.semilogy(sol.ts, sol.ys[:, master_module.y_indexes[species]], linewidth=2)[0]
+            plot_lines.append(line)
+            
+        if i == 0:  # Only store lines from the first plot for legend
+            lines = plot_lines
             
         ax.set_xlabel('Time (hours)')
         ax.set_ylabel('Concentration')
-        ax.set_title(f'{organ} Compartments')
-        ax.legend()
+        ax.set_title(f'{organ_name} Compartments')
         ax.grid(True, alpha=0.3)
+
+    # Create a single legend outside the subplots
+    fig2.legend(lines, labels, 
+               loc='center right', 
+               bbox_to_anchor=(0.98, 0.5),
+               title='Compartments')
     
-    # Save figure
-    plt.savefig('all_organs_master_model_concentration_plots.png', dpi=300, bbox_inches='tight')
+    # Adjust layout to make room for the legend
+    plt.tight_layout()
+    fig2.subplots_adjust(right=0.85)
+    
+    # Save typical tissues figure
+    fig2.savefig('concentration_plots_typical.png', dpi=300, bbox_inches='tight')
+    
     plt.show()
-    
-    # Print final concentrations
+
+    # Print final concentrations with proper labels
     print("\nFinal Concentrations:")
     print("-" * 30)
-    for organ, species_list in organ_species.items():
-        print(f"\n{organ}:")
-        for species in species_list:
+    compartments = [
+        'Blood:', 
+        '  Plasma (C_p)', '  Blood Cells (C_bc)', '  Lymph Node (C_ln)',
+        'Lung:', 
+        '  Plasma (C_p_lung)', '  Blood Cells (C_bc_lung)', '  ISF (C_is_lung)',
+        '  E Unbound (C_e_unbound_lung)', '  E Bound (C_e_bound_lung)', '  FcRn Free (FcRn_free_lung)',
+        'Brain:', 
+        '  Plasma (C_p_brain)', '  BBB Unbound (C_BBB_unbound_brain)', '  BBB Bound (C_BBB_bound_brain)',
+        '  ISF (C_is_brain)', '  BCSFB Unbound (C_BCSFB_unbound_brain)', '  BCSFB Bound (C_BCSFB_bound_brain)',
+        'CSF:',
+        '  Lateral Ventricle (C_LV_brain)', '  Third/Fourth Ventricle (C_TFV_brain)',
+        '  Cisterna Magna (C_CM_brain)', '  Subarachnoid Space (C_SAS_brain)',
+        'Liver:',
+        '  Plasma (C_p_liver)', '  Blood Cells (C_bc_liver)', '  ISF (C_is_liver)',
+        '  E Unbound (C_e_unbound_liver)', '  E Bound (C_e_bound_liver)', '  FcRn Free (FcRn_free_liver)'
+    ]
+
+    # Add typical tissues to compartments list
+    for organ_name, organ_id in typical_organs:
+        compartments.extend([
+            f'{organ_name}:',
+            f'  Plasma (C_p_{organ_id})', f'  Blood Cells (C_bc_{organ_id})', f'  ISF (C_is_{organ_id})',
+            f'  E Unbound (C_e_unbound_{organ_id})', f'  E Bound (C_e_bound_{organ_id})', 
+            f'  FcRn Free (FcRn_free_{organ_id})'
+        ])
+
+    for comp in compartments:
+        if comp.endswith(':'):
+            print(f"\n{comp}")
+        else:
+            species = comp.split('(')[1].rstrip(')')
             idx = master_module.y_indexes[species]
-            print(f"  {species:<25}: {sol.ys[-1, idx]:.6f}")
+            print(f"{comp:<45}: {sol.ys[-1, idx]:.6f}")
 
 if __name__ == "__main__":
     sol, master_module = run_simulation()
