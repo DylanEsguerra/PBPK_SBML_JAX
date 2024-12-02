@@ -8,13 +8,13 @@ from sbmltoodejax import jaxfuncs
 
 t0 = 0.0
 
-y0 = jnp.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0002491])
+y0 = jnp.array([4516.3147792706295, 0.0, 0.0, 0.0, 0.0, 0.0002491])
 y_indexes = {'C_p_lung': 0, 'C_bc_lung': 1, 'C_e_unbound_lung': 2, 'C_e_bound_lung': 3, 'C_is_lung': 4, 'FcRn_free_lung': 5}
 
 w0 = jnp.array([])
 w_indexes = {}
 
-c = jnp.array([4.51631477927063, 0.0, 1000.0, 55.0, 45.0, 5.0, 181913.0, 148920.0, 364.0, 559000000.0, 23.9, 26.6, 0.55, 0.715, 0.95, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 4.51631477927063, 0.0, 4.982e-05, 1000.0, 55.0, 45.0, 5.0]) 
+c = jnp.array([0.0, 0.0, 1000.0, 55.0, 45.0, 5.0, 181913.0, 148920.0, 364.0, 559000000.0, 23.9, 26.6, 0.55, 0.715, 0.95, 0.2, 4.51631477927063, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.982e-05, 1000.0, 55.0, 45.0, 5.0]) 
 c_indexes = {'C_p': 0, 'C_bc': 1, 'Vp_lung': 24, 'VBC_lung': 25, 'VIS_lung': 26, 'VES_lung': 27, 'Q_p_lung': 6, 'Q_bc_lung': 7, 'L_lung': 8, 'kon_FcRn': 9, 'koff_FcRn': 10, 'kdeg': 11, 'CLup_lung': 12, 'FR': 13, 'sigma_V_lung': 14, 'sigma_L_lung': 15, 'C_p_lung_0': 16, 'C_bc_lung_0': 17, 'C_is_lung_0': 18, 'C_e_unbound_lung_0': 19, 'C_e_bound_lung_0': 20, 'C_p_0': 21, 'C_bc_0': 22, 'FcRn_free_lung_0': 23}
 
 class RateofSpeciesChange(eqx.Module):
@@ -98,7 +98,7 @@ class ModelRollout(eqx.Module):
 		self.modelstepfunc = ModelStep(atol=atol, rtol=rtol, mxstep=mxstep)
 
 	@partial(jit, static_argnames=("n_steps",))
-	def __call__(self, n_steps, y0=jnp.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0002491]), w0=jnp.array([]), c=jnp.array([4.51631477927063, 0.0, 1000.0, 55.0, 45.0, 5.0, 181913.0, 148920.0, 364.0, 559000000.0, 23.9, 26.6, 0.55, 0.715, 0.95, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 4.51631477927063, 0.0, 4.982e-05, 1000.0, 55.0, 45.0, 5.0]), t0=0.0):
+	def __call__(self, n_steps, y0=jnp.array([4516.3147792706295, 0.0, 0.0, 0.0, 0.0, 0.0002491]), w0=jnp.array([]), c=jnp.array([0.0, 0.0, 1000.0, 55.0, 45.0, 5.0, 181913.0, 148920.0, 364.0, 559000000.0, 23.9, 26.6, 0.55, 0.715, 0.95, 0.2, 4.51631477927063, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.982e-05, 1000.0, 55.0, 45.0, 5.0]), t0=0.0):
 
 		@jit
 		def f(carry, x):

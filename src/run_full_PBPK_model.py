@@ -15,7 +15,7 @@ import pandas as pd
 import sys
 from sbmltoodejax import parse
 from sbmltoodejax.modulegeneration import GenerateModel
-from models.PBPK_SBML import create_pbpk_model, save_model, load_parameters
+from models.PBPK_full_SBML import create_pbpk_model, save_model, load_parameters
 
 # Add the project root to Python path
 sys.path.append(str(Path(__file__).parent.parent))
@@ -53,12 +53,13 @@ def run_simulation():
     from generated.jax.pbpk_jax import (
         RateofSpeciesChange, AssignmentRule, y0, w0, t0, c
     )
+
+    rate_of_change = RateofSpeciesChange()
+    assignment_rule = AssignmentRule()
     
     @jit
     def ode_func(t, y, args):
         w, c = args
-        rate_of_change = RateofSpeciesChange()
-        assignment_rule = AssignmentRule()
         
         # Update w using the assignment rule
         w = assignment_rule(y, w, c, t)
@@ -70,7 +71,7 @@ def run_simulation():
 
     # Simulation parameters
     t1 = 2000  # 2000 hours
-    dt = 0.01
+    dt = 0.001
     n_steps = 2000
     # Create diffrax solver
     term = ODETerm(ode_func)
@@ -88,7 +89,7 @@ def run_simulation():
         args=(w0, c),
         saveat=saveat,
         max_steps=1000000,
-        stepsize_controller=diffrax.PIDController(rtol=1e-3, atol=1e-6)
+        stepsize_controller=diffrax.PIDController(rtol=1e-8, atol=1e-8)
     )
     
     return sol
@@ -167,7 +168,7 @@ def plot_results(sol):
     ax5.grid(True, alpha=0.3)
 
     # Save non-typical tissues figure
-    fig1.savefig('concentration_plots_nontypical.png', dpi=300, bbox_inches='tight')
+    fig1.savefig('full_model_concentration_plots_nontypical.png', dpi=300, bbox_inches='tight')
 
     # Create figure for typical compartments
     fig2 = plt.figure(figsize=(15, 12))
@@ -221,7 +222,7 @@ def plot_results(sol):
     fig2.subplots_adjust(right=0.85)
 
     # Save typical tissues figure
-    fig2.savefig('concentration_plots_typical.png', dpi=300, bbox_inches='tight')
+    fig2.savefig('full_model_concentration_plots_typical.png', dpi=300, bbox_inches='tight')
     
     plt.show()
     
