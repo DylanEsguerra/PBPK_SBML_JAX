@@ -22,7 +22,7 @@ import libsbml
 # Add the project root to Python path
 project_root = str(Path(__file__).parent.parent)
 sys.path.append(project_root)
-from src.models.master_model import create_master_model
+from src.models.PBPK_modular_SBML import create_master_model
 
 
 def run_simulation():
@@ -148,7 +148,7 @@ def plot_results(sol, master_module):
     ax5.grid(True, alpha=0.3)
 
     # Save non-typical tissues figure
-    fig1.savefig('concentration_plots_nontypical.png', dpi=300, bbox_inches='tight')
+    fig1.savefig('modular_model_concentration_plots_nontypical.png', dpi=300, bbox_inches='tight')
 
     # Create figure for typical compartments
     fig2 = plt.figure(figsize=(15, 12))
@@ -200,7 +200,7 @@ def plot_results(sol, master_module):
     fig2.subplots_adjust(right=0.85)
     
     # Save typical tissues figure
-    fig2.savefig('concentration_plots_typical.png', dpi=300, bbox_inches='tight')
+    fig2.savefig('modular_model_concentration_plots_typical.png', dpi=300, bbox_inches='tight')
     
     plt.show()
 
