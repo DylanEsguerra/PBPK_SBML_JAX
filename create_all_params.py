@@ -350,11 +350,11 @@ def create_consolidated_params_csv():
         ],
         'value': [
             # Blood and lymph (3)
-            0.0, 0.0, 0.0,   # Original value was: 14118/3126 (36 mg/kg for 60kg person, Igg1 153 Kda 153000 g/mol, divided by Vp)
+            14118/3126, 0.0, 0.0,   # Original value was: 14118/3126 (36 mg/kg for 60kg person, Igg1 153 Kda 153000 g/mol, divided by Vp)
             
             # Plasma concentrations (15)
             # Set C_p_lung_0 to original plasma value, rest to 0
-            14118/3126,       # lung - using original plasma concentration value
+            0.0,       # lung - using original plasma concentration value
             0.0,              # brain
             *[0.0] * 13,      # remaining organs
             

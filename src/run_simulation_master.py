@@ -33,11 +33,10 @@ def run_simulation():
     params_dict = dict(zip(params_df['name'], params_df['value']))
     
     # Create master model
-    master_document = create_master_model(params_dict, params_dict)  # Same params for both brain and CSF
+    master_document = create_master_model(params_dict)
     output_dir = Path("generated/sbml")
     output_dir.mkdir(parents=True, exist_ok=True)
     master_path = output_dir / "master_sbml.xml"
-    
     
     libsbml.writeSBMLToFile(master_document, str(master_path))
     print(f"Master model saved to {master_path}")
@@ -52,9 +51,9 @@ def run_simulation():
     
     # Import generated JAX model
     master_module = importlib.import_module("generated.jax.master_jax")
-    importlib.reload(master_module)  # Ensure we have the latest version
+    importlib.reload(master_module)
     
-    # Simulation parameters
+    # Set up simulation parameters
     t0 = 0.0
     t1 = 2000
     dt = 0.001
@@ -73,7 +72,7 @@ def run_simulation():
         t1=t1,
         dt0=dt,
         y0=master_module.y0,
-        args=(None, master_module.c),  # Pass parameters from generated model
+        args=(None, master_module.c),
         saveat=saveat,
         max_steps=1000000,
         stepsize_controller=diffrax.PIDController(rtol=1e-8, atol=1e-8)
@@ -82,51 +81,47 @@ def run_simulation():
     return sol, master_module
 
 def plot_results(sol, master_module):
-    # Create figure with 1x2 grid layout for compartment plots
-    fig1 = plt.figure(figsize=(15, 6))
-    gs = fig1.add_gridspec(1, 2, hspace=0.3, wspace=0.3)
+    # Create figure with subplots for each organ system
+    fig = plt.figure(figsize=(20, 15))
+    gs = fig.add_gridspec(3, 2, hspace=0.3, wspace=0.3)
     
-    # Get indices from the master module
-    brain_species = ['C_p_brain', 'C_BBB_unbound_brain', 'C_BBB_bound_brain', 
-                    'C_is_brain', 'C_bc_brain']
-    csf_species = ['C_BCSFB_unbound_brain', 'C_BCSFB_bound_brain', 'C_LV_brain',
-                  'C_TFV_brain', 'C_CM_brain', 'C_SAS_brain']
+    # Define species groups for each organ
+    organ_species = {
+        'Blood': ['C_p', 'C_bc', 'C_ln'],
+        'Lung': ['C_p_lung', 'C_bc_lung', 'C_is_lung', 'C_e_unbound_lung', 'C_e_bound_lung'],
+        'Brain': ['C_p_brain', 'C_BBB_unbound_brain', 'C_BBB_bound_brain', 'C_is_brain', 'C_bc_brain'],
+        'CSF': ['C_BCSFB_unbound_brain', 'C_BCSFB_bound_brain', 'C_LV_brain', 'C_TFV_brain', 'C_CM_brain', 'C_SAS_brain'],
+        'Liver': ['C_p_liver', 'C_bc_liver', 'C_is_liver', 'C_e_unbound_liver', 'C_e_bound_liver']
+    }
     
-    # Map species names to indices
-    brain_indices = [master_module.y_indexes[species] for species in brain_species]
-    csf_indices = [master_module.y_indexes[species] for species in csf_species]
+    # Plot each organ system
+    for idx, (organ, species_list) in enumerate(organ_species.items()):
+        row = idx // 2
+        col = idx % 2
+        ax = fig.add_subplot(gs[row, col])
+        
+        # Get indices for each species
+        indices = [master_module.y_indexes[species] for species in species_list]
+        
+        # Plot each species
+        for idx, label in zip(indices, species_list):
+            ax.semilogy(sol.ts, sol.ys[:, idx], label=label, linewidth=2)
+            
+        ax.set_xlabel('Time (hours)')
+        ax.set_ylabel('Concentration')
+        ax.set_title(f'{organ} Compartments')
+        ax.legend()
+        ax.grid(True, alpha=0.3)
     
-    # Brain compartments plot
-    ax1 = fig1.add_subplot(gs[0, 0])
-    for idx, label in zip(brain_indices, brain_species):
-        ax1.semilogy(sol.ts, sol.ys[:, idx], label=label.replace('_brain', ''), linewidth=2)
-    ax1.set_xlabel('Time (hours)')
-    ax1.set_ylabel('Concentration')
-    ax1.set_title('Brain Compartments')
-    ax1.legend()
-    ax1.grid(True, alpha=0.3)
-
-    # CSF compartments plot
-    ax2 = fig1.add_subplot(gs[0, 1])
-    for idx, label in zip(csf_indices, csf_species):
-        ax2.semilogy(sol.ts, sol.ys[:, idx], label=label.replace('_brain', ''), linewidth=2)
-    ax2.set_xlabel('Time (hours)')
-    ax2.set_ylabel('Concentration')
-    ax2.set_title('CSF Compartments')
-    ax2.legend()
-    ax2.grid(True, alpha=0.3)
-
     # Save figure
-    fig1.savefig('brain_csf_master_concentration_plots.png', dpi=300, bbox_inches='tight')
+    plt.savefig('all_organs_master_model_concentration_plots.png', dpi=300, bbox_inches='tight')
     plt.show()
-
+    
     # Print final concentrations
     print("\nFinal Concentrations:")
     print("-" * 30)
-    all_species = [('Brain:', brain_species), ('CSF:', csf_species)]
-    
-    for header, species_list in all_species:
-        print(f"\n{header}")
+    for organ, species_list in organ_species.items():
+        print(f"\n{organ}:")
         for species in species_list:
             idx = master_module.y_indexes[species]
             print(f"  {species:<25}: {sol.ys[-1, idx]:.6f}")
