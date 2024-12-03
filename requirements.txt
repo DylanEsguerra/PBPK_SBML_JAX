@@ -1,0 +1,9 @@
+jax
+jaxlib
+diffrax
+matplotlib
+pandas
+openpyxl
+python-libsbml
+equinox
+sbmltoodejax
