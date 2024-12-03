@@ -16,18 +16,49 @@ The project offers two complementary approaches:
    - Composed into unified model
    - Increased ability to add new organs / features to the model without changing the core code
 
+## Installation and Setup
 
+1. Clone the repository:
+```bash
+git clone https://github.com/DylanEsguerra/PBPK_SBML_JAX.git
+cd PBPK_SBML_JAX
+```
 
-### Full Implementation Workflow
-2. SBML model generation (`src/models/PBPK_full_SBML.py`)
-3. JAX code generation (using SBMLtoODEjax)
-4. ODE solving with Diffrax (`src/run_full_PBPK_model.py`)
+2. Create and activate a virtual environment:
+```bash
+# For Windows
+python -m venv venv
+venv\Scripts\activate
 
-### Modular Implementation Workflow
-1. Individual SBML model generation for each organ
-2. Model composition into unified SBML
-3. JAX code generation
-4. Coupled system solving
+# For macOS/Linux
+python3 -m venv venv
+source venv/bin/activate
+```
+
+3. Install required dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
+
+1. Ensure your virtual environment is activated:
+```bash
+# For Windows
+venv\Scripts\activate
+
+# For macOS/Linux
+source venv/bin/activate
+```
+
+2. Run either implementation:
+```bash
+# For the full model
+python src/run_full_PBPK_model.py
+
+# For the modular implementation
+python src/run_modular_PBPK_model.py
+```
 
 ## File Structure and Functions
 
@@ -65,18 +96,6 @@ The project offers two complementary approaches:
   - `[organ]_sbml.xml`: Individual organ models
 - `generated/jax/`: Generated JAX code
   - Used by solvers for numerical integration
-
-## Usage
-
-### Running the Full Model
-```bash
-python src/run_full_PBPK_model.py
-```
-
-### Running the Modular Implementation
-```bash
-python src/run_modular_PBPK_model.py
-```
 
 ## Dependencies
 - JAX: Automatic differentiation and numerical computing
