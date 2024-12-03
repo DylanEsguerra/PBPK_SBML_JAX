@@ -63,14 +63,4 @@ python utils/printmath.py path/to/your/model.xml
 
 This will verify that the SBML file can be properly parsed and compiled.
 
-## Contributing
 
-If you'd like to add a new PBPK model to this repository:
-1. Create a new directory under `models/`
-2. Include model-specific documentation in a README.md
-3. Follow the existing structure for consistency
-4. Use `utils/printmath.py` to verify your SBML models
-
-## License
-
-[Your license information]
