@@ -27,7 +27,7 @@ def create_vwd_model(params):
     vwd_compartment.setSize(1.0)
     vwd_compartment.setUnits("dimensionless")
 
-    # Add species
+    # Add species with proper initial conditions
     abeta = model.createSpecies()
     abeta.setId("A_beta")
     abeta.setCompartment("local_amyloid")
@@ -47,10 +47,10 @@ def create_vwd_model(params):
     vwd.setUnits("dimensionless")
 
     # Add central concentration as a parameter (will be updated from PK model)
-    central_conc = model.createParameter()
-    central_conc.setId("central_conc")
-    central_conc.setValue(0.0)
-    central_conc.setConstant(False)
+    #central_conc = model.createParameter()
+    #central_conc.setId("central_conc")
+    #central_conc.setValue(0.0)
+    #central_conc.setConstant(False)
 
     # PD Model reactions
     # Amyloid degradation: A_beta ->
@@ -64,7 +64,7 @@ def create_vwd_model(params):
     r1_react.setConstant(False)
     
     # Kinetic Law: Rate of amyloid degradation
-    math_ast = libsbml.parseL3Formula("alpha_removal * central_conc * A_beta")
+    math_ast = libsbml.parseL3Formula("alpha_removal * C * A_beta")
     r1_kl = r1.createKineticLaw()
     r1_kl.setMath(math_ast)
     
@@ -79,7 +79,7 @@ def create_vwd_model(params):
     r2_prod.setConstant(False)
     
     # Kinetic Law: Rate of VWD production
-    math_ast = libsbml.parseL3Formula("alpha_removal * central_conc * A_beta")
+    math_ast = libsbml.parseL3Formula("alpha_removal * C * A_beta")
     r2_kl = r2.createKineticLaw()
     r2_kl.setMath(math_ast)
     
