@@ -1,8 +1,13 @@
 import libsbml
 from pathlib import Path
 import sys
-from src.models.pk_sbml import create_pk_model
-from src.models.vwd.vwd_sbml import create_vwd_model
+
+# Add the project root to Python path
+current_file = Path(__file__).resolve()
+project_root = current_file.parent.parent.parent.parent
+sys.path.append(str(project_root))
+from pk_module.pk_sbml import create_pk_model
+from Aldea2022.src.models.vwd.vwd_sbml import create_vwd_model
 
 def create_master_model(params):
     """Create a master SBML model that combines PK and VWD models"""
