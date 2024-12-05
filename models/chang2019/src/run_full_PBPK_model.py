@@ -98,6 +98,10 @@ def run_simulation():
 
 def plot_results(sol):
     """Plot results from the combined PBPK model simulation"""
+    # Create figures directory if it doesn't exist
+    figures_dir = Path("generated/figures")
+    figures_dir.mkdir(parents=True, exist_ok=True)
+    
     # Create figure for non-typical compartments
     fig1 = plt.figure(figsize=(15, 12))
     gs1 = fig1.add_gridspec(3, 2, hspace=0.3, wspace=0.3)
@@ -168,7 +172,8 @@ def plot_results(sol):
     ax5.grid(True, alpha=0.3)
 
     # Save non-typical tissues figure
-    fig1.savefig('full_model_concentration_plots_nontypical.png', dpi=300, bbox_inches='tight')
+    fig1.savefig(figures_dir / 'full_model_concentration_plots_nontypical.png', 
+                 dpi=300, bbox_inches='tight')
 
     # Create figure for typical compartments
     fig2 = plt.figure(figsize=(15, 12))
@@ -222,7 +227,8 @@ def plot_results(sol):
     fig2.subplots_adjust(right=0.85)
 
     # Save typical tissues figure
-    fig2.savefig('full_model_concentration_plots_typical.png', dpi=300, bbox_inches='tight')
+    fig2.savefig(figures_dir / 'full_model_concentration_plots_typical.png', 
+                 dpi=300, bbox_inches='tight')
     
     plt.show()
     

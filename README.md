@@ -1,22 +1,86 @@
-# PBPK Model Implementation (Chang et al. 2019)
+# PBPK Models Repository
 
-This repository implements a Physiologically Based Pharmacokinetic (PBPK) model for antibody disposition in the brain, based on Chang et al. 2019. The implementation uses SBML for model definition, SBMLtoODEjax for conversion to JAX code, and Diffrax for solving the differential equations.
+This repository contains implementations of pharmacokinetic and pharmacodynamic models relevant to Alzheimer's disease research, including a detailed physiologically based pharmacokinetic model (PBPK) as well as simpler models with a specific focus on amyloid-related imaging abnormalities (ARIA). The models are implemented using Systems Biology Markup Language (SBML) for biological pathway definition and JAX for efficient numerical computations.
 
-## Project Overview
+## Project Philosophy: Modular Model Development
 
-The project offers two complementary approaches:
+The ultimate goal of this repository is to create a highly modularized framework for modeling various aspects of Alzheimer's disease. This approach offers several key advantages:
 
-1. **Full Implementation** (`run_full_PBPK_model.py`)
-   - Single system solution
-   - Complete PBPK model
-   - Simultaneous concentration updates
+1. **Code Reuse**: Many published models share common components. For example, both the Aldea2022 and Retout2022 models use identical pharmacokinetic equations for antibody distribution. Our `pk_module` implements this shared functionality once and is used by both models.
 
-2. **Modular Implementation** (`run_modular_PBPK_model.py`)
-   - Separate organ modules
-   - Composed into unified model
-   - Increased ability to add new organs / features to the model without changing the core code
+2. **Extensibility**: New features can be added without modifying existing code. The extended Aldea model demonstrates this by adding Michaelis-Menten kinetics for amyloid-beta production while preserving the original model's vascular wall disturbance calculations.
 
-## Installation and Setup
+3. **Model Integration**: As new Alzheimer's disease models are published each year, many share underlying mechanisms. Our modular approach allows researchers to:
+   - Reuse validated components
+   - Compare different mechanistic hypotheses
+   - Combine features from multiple models
+
+This modular philosophy is demonstrated throughout the repository:
+- The `pk_module` is shared across multiple ARIA-E models
+- The Aldea2022 model is extended without modifying the original implementation
+- The Chang2019 PBPK model demonstrates a complicated multi-compartment model that is implemented in a modular fashion
+
+
+## Biological Context
+
+The models in this repository address two key areas in Alzheimer's disease research:
+
+1. **Antibody Distribution**: How therapeutic antibodies move through the body and reach the brain
+2. **ARIA-E Development**: How anti-amyloid treatments might lead to ARIA-E (edema) as a side effect
+
+
+## Available Models
+
+### [Chang et al. 2019](models/chang2019/)
+- **Description**: PBPK model for antibody disposition in the brain
+- **Key Features**:
+  - SBML model definition
+  - JAX-based numerical computation
+  - Both full and modular implementations
+- **Reference**: Chang HY, Wu S, Meno-Tetang G, Shah DK. A translational platform PBPK model for antibody disposition in the brain. J Pharmacokinet Pharmacodyn. 2019
+
+### [ARIA-E Models](models/ARIA_E/)
+- **Description**: Models related to ARIA-E, including replication and extended versions
+- **Key Features**:
+  - Shared PK model in `pk_module`
+  - Replication of Aldea2022 with vascular wall disturbance (VWD)
+  - Extended model with amyloid-beta production using Michaelis-Menten kinetics
+  - Retout2022 model with hazard function
+- **References**: 
+
+Aldea, Roxana, et al. “In silico exploration of amyloid‐related imaging abnormalities in the gantenerumab open‐label extension trials using a semi‐mechanistic model.” Alzheimer’s &amp; Dementia: Translational Research &amp; Clinical Interventions, vol. 8, no. 1, Jan. 2022, https://doi.org/10.1002/trc2.12306.
+
+Retout S, Gieschke R, Serafin D, Weber C, Frey N, Hofmann C. Disease modeling and model-based meta-analyses to define a new direction for a phase iii program of gantenerumab in alzheimer’s disease. Clin Pharmacol Ther. 2022;111(4):857-866. https://doi.org/10.1002/ cpt.2535
+
+## Repository Structure
+```
+.
+├── README.md             # This file
+├── requirements.txt      # Project dependencies
+├── utils/
+│   └── printmath.py      # Utility for testing SBML compilation and viewing reactions
+└── models/
+    ├── chang2019/        # Chang et al. 2019 PBPK model
+    │   ├── src/          # Model implementation
+    │   ├── parameters/   # Model parameters
+    │   ├── artifacts/    # Development artifacts and tests
+    │   ├── generated/    # Generated code and figures
+    │   └── README.md     # Model-specific documentation
+    ├── ARIA-E/           # ARIA-E related models
+    │   ├── pk_module/    # Shared PK model
+    │   ├── Aldea2022/    # Aldea2022 model and its extensions
+    │   │   ├── src/      # Model implementation
+    │   │   ├── parameters/   # Model parameters
+    │   │   ├── generated/    # Generated code and figures
+    │   ├── Retout2022/   # Retout2022 model with hazard function
+    │   │   ├── src/      # Model implementation
+    │   │   ├── parameters/   # Model parameters
+    │   │   ├── generated/    # Generated code and figures
+    │   └── README.md     # Model-specific documentation
+    └── common/           # Shared utilities
+```
+
+## Setup
 
 1. Clone the repository:
 ```bash
@@ -40,83 +104,14 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Usage
+## Testing SBML Models
 
-1. Ensure your virtual environment is activated:
+The `utils/printmath.py` utility can be used to test SBML model compilation:
+
 ```bash
-# For Windows
-venv\Scripts\activate
-
-# For macOS/Linux
-source venv/bin/activate
+python utils/printmath.py path/to/your/model.xml
 ```
 
-2. Run either implementation:
-```bash
-# For the full model
-python src/run_full_PBPK_model.py
-
-# For the modular implementation
-python src/run_modular_PBPK_model.py
-```
-
-## File Structure and Functions
-
-### Parameter loading
-- `create_all_parameters.py`: Creates the parameter CSV file
-- `parameters/pbpk_parameters.csv`: Parameter values for the model
-
-
-### Full Implementation Files
-- `src/run_full_PBPK_model.py`: Full model solver
-  - Generates JAX model from SBML
-  - Sets up and runs the ODE solver
-  - Handles result plotting
-
-- `src/models/PBPK_full_SBML.py`: SBML model generator
-  - Creates compartments for all organs in one SBML file
-  - Defines species and their initial conditions
-  - Implements all ODEs and rate rules
-  - Validates model structure
-
-### Modular Implementation Files
-- `src/run_modular_PBPK_model.py`: Modular solver
-  - Coordinates the Modular model simulation
-
-- `src/models/PBPK_modular_SBML.py`: Modular model generator
-  - Combines individual organ models from seperate SBML files into a single unified model
-
-- `src/models/organ_SBML.py`: Individual organ models
-  - Creates individual organ models in seperate SBML files
-
-## Generated Files
-- `generated/sbml/`: SBML model definitions
-  - `pbpk_model.xml`: Full model
-  - `master_sbml.xml`: Composed modular model
-  - `[organ]_sbml.xml`: Individual organ models
-- `generated/jax/`: Generated JAX code
-  - Used by solvers for numerical integration
-
-## Dependencies
-- JAX: Automatic differentiation and numerical computing
-- Diffrax: ODE solver
-- libSBML: SBML model handling
-- SBMLtoODEjax: SBML to JAX conversion
-- Matplotlib: Result visualization
-- Pandas: Parameter data handling
-
-## Generated Plots
-
-Both implementations generate two visualization plots:
-
-### 1. Typical Tissues Plot
-![Typical Tissues](modular_model_concentration_plots_typical.png)
-
-### 2. Non-Typical Compartments Plot
-![Non-Typical Compartments](modular_model_concentration_plots_nontypical.png)
-
-## References
-Chang HY, Wu S, Meno-Tetang G, Shah DK. A translational platform PBPK model for antibody disposition in the brain. J Pharmacokinet Pharmacodyn. 2019 Aug;46(4):319-338.
-
+This will verify that the SBML file can be properly parsed and compiled.
 
 
