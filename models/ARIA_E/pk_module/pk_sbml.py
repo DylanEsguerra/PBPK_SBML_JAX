@@ -1,4 +1,5 @@
 import libsbml
+from pathlib import Path
 
 
 
@@ -43,7 +44,7 @@ def create_pk_model(params, sc_doses, iv_doses):
     peripheral.setSize(params["Vp"])
     peripheral.setUnits("litre")
     
-    # Add species with proper units
+    # Add species with proper units and initial conditions
     a = model.createSpecies()
     a.setId("A")
     a.setCompartment("absorption_site")
@@ -226,8 +227,9 @@ def create_pk_model(params, sc_doses, iv_doses):
     
     return document
 
-def save_model(document, filename):
-    libsbml.writeSBMLToFile(document, filename)
+def save_model(document, output_dir):
+    output_dir.mkdir(parents=True, exist_ok=True)
+    libsbml.writeSBMLToFile(document, str(output_dir / "pk_sbml.xml"))
 
 
 def main(params, sc_doses, iv_doses):
@@ -235,7 +237,7 @@ def main(params, sc_doses, iv_doses):
     document = create_pk_model(params, sc_doses, iv_doses)
     
     # Always save a new XML file, overwriting any existing one
-    save_model(document, "pk_sbml.xml")
+    save_model(document, Path("."))
     
     # Validate after saving
     if document.getNumErrors() != 0:
