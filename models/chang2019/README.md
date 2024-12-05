@@ -52,6 +52,13 @@ source venv/bin/activate
 ```
 
 2. Run either implementation:
+
+change to the chang2019 directory:  
+
+```bash
+cd chang2019
+```
+
 ```bash
 # For the full model
 python src/run_full_PBPK_model.py

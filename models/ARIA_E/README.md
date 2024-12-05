@@ -66,6 +66,13 @@ source venv/bin/activate
 ```
 
 2. Run the models:
+
+change to the ARIA_E directory:
+
+```bash
+cd ARIA_E
+```
+
 ```bash
 # For Aldea2022 model
 python Aldea2022/src/run_Aldea_model.py
