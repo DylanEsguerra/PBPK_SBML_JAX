@@ -39,7 +39,7 @@ The models in this repository address two key areas in Alzheimer's disease resea
   - Both full and modular implementations
 - **Reference**: Chang HY, Wu S, Meno-Tetang G, Shah DK. A translational platform PBPK model for antibody disposition in the brain. J Pharmacokinet Pharmacodyn. 2019
 
-### [ARIA-E Models](models/ARIA-E/)
+### [ARIA-E Models](models/ARIA_E/)
 - **Description**: Models related to ARIA-E, including replication and extended versions
 - **Key Features**:
   - Shared PK model in `pk_module`
