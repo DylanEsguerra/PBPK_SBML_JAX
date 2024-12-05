@@ -76,7 +76,7 @@ def load_parameters():
 def run_simulation():
     params = load_parameters()
     
-    base_dir = Path(__file__).parent
+    base_dir = Path(__file__).parent.parent
     sbml_dir = base_dir / "generated" / "sbml"
     jax_dir = base_dir / "generated" / "jax"
     figures_dir = base_dir / "generated" / "figures"

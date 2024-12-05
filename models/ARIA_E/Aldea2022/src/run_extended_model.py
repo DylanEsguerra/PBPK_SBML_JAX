@@ -133,8 +133,8 @@ def plot_original_model(times, ys, ws, y_indexes, params, figures_dir):
     ax1.set_title('ARIA-E case ', fontsize=14, pad=20)
 
     # For the first plot (PK)
-    ax1.set_ylim(0, 150)
-    ax1.set_yticks([0, 75, 150])
+    #ax1.set_ylim(0, 150)
+    #ax1.set_yticks([0, 75, 150])
     ax2.set_ylim(0, 1500)  # Keep the 10x relationship for the dose axis
     ax2.set_yticks([0, 750, 1500])
 
@@ -146,8 +146,8 @@ def plot_original_model(times, ys, ws, y_indexes, params, figures_dir):
              label='Local Amyloid (Aβ)', 
              color='limegreen',
              linewidth=2)
-    plt.ylim(0, 5)
-    plt.yticks([0, 2.5, 5])
+    #plt.ylim(0, 5)
+    #plt.yticks([0, 2.5, 5])
     plt.xlabel('')  # Remove x-axis label
     plt.ylabel('Local Amyloid', fontsize=14)
     #plt.title('Local Amyloid', fontsize=12, pad=20)
@@ -163,8 +163,8 @@ def plot_original_model(times, ys, ws, y_indexes, params, figures_dir):
              label='VWD', 
              color='r',
              linewidth=2)
-    plt.ylim(0, 1)
-    plt.yticks([0, 0.5, 1])
+    #plt.ylim(0, 1)
+    #plt.yticks([0, 0.5, 1])
     plt.xlabel('')  # Remove x-axis label
     plt.ylabel('VWD', fontsize=14)
     #plt.title('VWD', fontsize=12, pad=20)
@@ -181,8 +181,8 @@ def plot_original_model(times, ys, ws, y_indexes, params, figures_dir):
              color='cyan',
              linewidth=2)
     plt.axhline(y=4, color='r', linestyle='--', label='Threshold (BGTS=4)')
-    plt.ylim(0, 30)
-    plt.yticks([0, 15, 30])
+    #plt.ylim(0, 30)
+    #plt.yticks([0, 15, 30])
     plt.xlabel('Weeks since first dose', fontsize=14)
     plt.ylabel('ARIA-E [BGTS]', fontsize=14)
     #plt.title('BGTS', fontsize=12, pad=20)
@@ -191,7 +191,7 @@ def plot_original_model(times, ys, ws, y_indexes, params, figures_dir):
     plt.grid(True, alpha=0.3)
 
     # Save the figure before showing it
-    plt.savefig(figures_dir / 'aldea2022_simulation.png', 
+    plt.savefig(figures_dir / 'aldea_extended_simulation.png', 
                 bbox_inches='tight', 
                 dpi=300)
     plt.show()
@@ -263,7 +263,7 @@ def plot_mm_species(times, ys, y_indexes, figures_dir):
 def run_simulation():
     params = load_parameters()
     
-    base_dir = Path(__file__).parent
+    base_dir = Path(__file__).parent.parent
     sbml_dir = base_dir / "generated" / "sbml"
     jax_dir = base_dir / "generated" / "jax"
     figures_dir = base_dir / "generated" / "figures"

@@ -98,6 +98,31 @@ python Retout2022/src/run_Retout_model.py
 - SBMLtoODEjax: SBML to JAX conversion
 - Matplotlib: Result visualization
 
+## Generated Plots
+
+### Aldea2022 Model
+The original model generates plots showing:
+![Aldea2022 Simulation](Aldea2022/generated/figures/aldea2022_simulation.png)
+- Antibody concentrations in central and peripheral compartments
+- Local amyloid concentration
+- Vascular wall disturbance (VWD) over time
+
+### Extended Aldea2022 Model
+The extended model produces additional plots:
+![Extended Model Simulation](Aldea2022/generated/figures/extended_model_simulation.png)
+- Original Aldea2022 components
+- APP concentration and processing
+- C83 and C99 fragment dynamics
+- P3 and A-beta production rates
+
+### Retout2022 Model
+![Retout Model Simulation](Retout2022/generated/figures/retout2022_simulation.png)
+- PK profiles for different dosing regimens
+- ARIA-E hazard function over time
+- Risk stratification by APOE4 status
+
+Each model's figures are saved in their respective `generated/figures/` directories with high resolution (300 DPI) for publication quality.
+
 ## References
 Aldea, Roxana, et al. “In silico exploration of amyloid‐related imaging abnormalities in the gantenerumab open‐label extension trials using a semi‐mechanistic model.” Alzheimer’s &amp; Dementia: Translational Research &amp; Clinical Interventions, vol. 8, no. 1, Jan. 2022, https://doi.org/10.1002/trc2.12306.
 

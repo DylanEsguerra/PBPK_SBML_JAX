@@ -82,10 +82,14 @@ def load_parameters():
 def run_simulation():
     params = load_parameters()
     
-    base_dir = Path(__file__).parent
+    base_dir = Path(__file__).parent.parent
     sbml_dir = base_dir / "generated" / "sbml"
     jax_dir = base_dir / "generated" / "jax"
-    jax_dir.mkdir(parents=True, exist_ok=True)
+    figures_dir = base_dir / "generated" / "figures"
+    
+    # Create all necessary directories
+    for dir_path in [jax_dir, figures_dir]:
+        dir_path.mkdir(parents=True, exist_ok=True)
     
     print("Generating master SBML model...")
     master_document = create_master_model(params)
@@ -113,9 +117,9 @@ def run_simulation():
     times = jnp.linspace(t0, t1, n_steps)
     
     # Plot results
-    plot_results(times, ys, ws, params)
+    plot_results(times, ys, ws, params, figures_dir)
 
-def plot_results(times, ys, ws, params):
+def plot_results(times, ys, ws, params, figures_dir):
     y_indexes = {
         'A': 0, 
         'C': 1, 
@@ -125,7 +129,7 @@ def plot_results(times, ys, ws, params):
         'ARIA_hazard': 5
     }
 
-    plt.figure(figsize=(15, 12))
+    plt.figure(figsize=(12, 10))
     plt.subplots_adjust(wspace=0.3, hspace=0.3)
 
     # Plot 1: Central Concentration with doses (top left)
@@ -231,6 +235,10 @@ def plot_results(times, ys, ws, params):
 
     plt.title('ARIA Hazard and Cumulative Events', fontsize=12, pad=20)
     plt.grid(True, alpha=0.3)
+
+    plt.savefig(figures_dir / 'retout2022_simulation.png', 
+                bbox_inches='tight', 
+                dpi=300)
     
     plt.show()
 
