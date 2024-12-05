@@ -80,7 +80,11 @@ def run_simulation():
     base_dir = Path(__file__).parent
     sbml_dir = base_dir / "generated" / "sbml"
     jax_dir = base_dir / "generated" / "jax"
-    jax_dir.mkdir(parents=True, exist_ok=True)
+    figures_dir = base_dir / "generated" / "figures"
+    
+    # Create all necessary directories
+    for dir_path in [jax_dir, figures_dir]:
+        dir_path.mkdir(parents=True, exist_ok=True)
     
     print("Generating master SBML model...")
     master_document = create_master_model(params)
@@ -117,7 +121,7 @@ def run_simulation():
         'VWD': 4
     }
 
-    plt.figure(figsize=(10, 12))
+    plt.figure(figsize=(12, 8))
     plt.subplots_adjust(hspace=0.5)
 
     ax1 = plt.subplot(4, 1, 1)
@@ -139,57 +143,82 @@ def run_simulation():
 
     ax2 = ax1.twinx()
     ax2.set_ylim(ax1.get_ylim()[0]*10, ax1.get_ylim()[1]*10)
-    ax2.set_ylabel('Dose (mg)', color='orange', fontsize=10)
-    ax2.tick_params(axis='y', labelcolor='orange')
+    ax2.set_ylabel('Dose (mg)', fontsize=14)
+    ax2.tick_params(axis='y', labelcolor='orange', labelsize=12)
 
-    ax1.set_xlabel('Time (weeks)', fontsize=10)
-    ax1.set_ylabel('Concentration (mcg/mL)', color='m', fontsize=10)
-    ax1.tick_params(axis='y', labelcolor='m')
+    ax1.set_xlabel('')
+    ax1.set_ylabel('PK [mcg/mL]', fontsize=14)
+    ax1.tick_params(axis='y', labelsize=12)
     ax1.grid(True, alpha=0.3)
 
     lines = line1 + line2
     labels = [l.get_label() for l in lines]
-    ax1.legend(lines, labels, fontsize=10)
+    #ax1.legend(lines, labels, fontsize=10)
 
-    ax1.set_title('PK: Central Concentration', fontsize=12, pad=20)
+    ax1.set_title('ARIA-E case ', fontsize=14, pad=20)
 
+    # For the first plot (PK)
+    ax1.set_ylim(0, 150)
+    ax1.set_yticks([0, 75, 150])
+    ax2.set_ylim(0, 1500)  # Keep the 10x relationship for the dose axis
+    ax2.set_yticks([0, 750, 1500])
+
+   
+
+    # For the second plot (Local Amyloid)
     plt.subplot(4, 1, 2)
     plt.plot(times/7, ys[y_indexes['A_beta']], 
              label='Local Amyloid (Aβ)', 
-             color='g',
+             color='limegreen',
              linewidth=2)
-    plt.xlabel('Time (weeks)', fontsize=10)
-    plt.ylabel('Level', fontsize=10)
-    plt.title('Local Amyloid', fontsize=12, pad=20)
-    plt.legend(fontsize=10)
+    plt.ylim(0, 5)
+    plt.yticks([0, 2.5, 5])
+    plt.xlabel('')  # Remove x-axis label
+    plt.ylabel('Local Amyloid', fontsize=14)
+    #plt.title('Local Amyloid', fontsize=12, pad=20)
+    #plt.legend(fontsize=10)
+    plt.tick_params(labelsize=12)
     plt.grid(True, alpha=0.3)
 
+    
+
+    # For the third plot (VWD)
     plt.subplot(4, 1, 3)
     plt.plot(times/7, ys[y_indexes['VWD']], 
              label='VWD', 
-             color='b',
+             color='r',
              linewidth=2)
-    plt.xlabel('Time (weeks)', fontsize=10)
-    plt.ylabel('Level', fontsize=10)
-    plt.title('VWD', fontsize=12, pad=20)
-    plt.legend(fontsize=10)
+    plt.ylim(0, 1)
+    plt.yticks([0, 0.5, 1])
+    plt.xlabel('')  # Remove x-axis label
+    plt.ylabel('VWD', fontsize=14)
+    #plt.title('VWD', fontsize=12, pad=20)
+    #plt.legend(fontsize=10)
+    plt.tick_params(labelsize=12)
     plt.grid(True, alpha=0.3)
 
     bgts_values = ws[2,:]
 
-
+    # For the fourth plot (BGTS)
     plt.subplot(4, 1, 4)
     plt.plot(times/7, bgts_values, 
              label='BGTS', 
-             color='r',
+             color='cyan',
              linewidth=2)
-    plt.xlabel('Time (weeks)', fontsize=10)
-    plt.ylabel('Level', fontsize=10)
-    plt.title('BGTS', fontsize=12, pad=20)
-    plt.legend(fontsize=10)
+    plt.axhline(y=4, color='r', linestyle='--', label='Threshold (BGTS=4)')
+    plt.ylim(0, 30)
+    plt.yticks([0, 15, 30])
+    plt.xlabel('Weeks since first dose', fontsize=14)
+    plt.ylabel('ARIA-E [BGTS]', fontsize=14)
+    #plt.title('BGTS', fontsize=12, pad=20)
+    #plt.legend(fontsize=10)
+    plt.tick_params(labelsize=12)
     plt.grid(True, alpha=0.3)
 
-    plt.ylim(0, 30)
+    # Save the figure before showing it
+    plt.savefig(figures_dir / 'aldea2022_simulation.png', 
+                bbox_inches='tight', 
+                dpi=300)
     plt.show()
 
 if __name__ == "__main__":

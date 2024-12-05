@@ -82,9 +82,17 @@ def create_master_model(params):
         for i in range(source_model.getNumRules()):
             rule = source_model.getRule(i)
             if rule.isAssignment():
-                new_rule = model.createAssignmentRule()
-                new_rule.setVariable(rule.getVariable())
-                new_rule.setMath(rule.getMath().deepCopy())
+                if (rule.getVariable() == "Dsc" and source_model == pk_model):
+                    existing_math = rule.getMath()
+                    new_rule = model.createAssignmentRule()
+                    new_rule.setVariable(rule.getVariable())
+                    # Create new piecewise expression that includes BGTS check
+                    new_math_ast = libsbml.parseL3Formula(f"piecewise(0, BGTS > 4, {libsbml.formulaToString(existing_math)})")
+                    new_rule.setMath(new_math_ast)
+                else:
+                    new_rule = model.createAssignmentRule()
+                    new_rule.setVariable(rule.getVariable())
+                    new_rule.setMath(rule.getMath().deepCopy())
             elif rule.isRate():
                 new_rule = model.createRateRule()
                 new_rule.setVariable(rule.getVariable())
@@ -117,6 +125,7 @@ def create_master_model(params):
                 new_kl = new_reaction.createKineticLaw()
                 new_kl.setMath(kl.getMath().deepCopy())
 
+    
     return document
 
 def save_model(document, output_dir):
