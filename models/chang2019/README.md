@@ -110,10 +110,10 @@ python src/run_modular_PBPK_model.py
 Both implementations generate two visualization plots:
 
 ### 1. Typical Tissues Plot
-![Typical Tissues](modular_model_concentration_plots_typical.png)
+![Typical Tissues](generated/figures/modular_model_concentration_plots_typical.png)
 
 ### 2. Non-Typical Compartments Plot
-![Non-Typical Compartments](modular_model_concentration_plots_nontypical.png)
+![Non-Typical Compartments](generated/figures/modular_model_concentration_plots_nontypical.png)
 
 ## References
 Chang HY, Wu S, Meno-Tetang G, Shah DK. A translational platform PBPK model for antibody disposition in the brain. J Pharmacokinet Pharmacodyn. 2019 Aug;46(4):319-338.
