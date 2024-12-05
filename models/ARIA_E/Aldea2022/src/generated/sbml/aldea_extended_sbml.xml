@@ -1,0 +1,1696 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model id="Aldea_Extended_Model" timeUnits="day">
+    <listOfCompartments>
+      <compartment id="absorption_site" size="1" units="litre" constant="true"/>
+      <compartment id="central" size="3.52" units="litre" constant="true"/>
+      <compartment id="peripheral" size="6.38" units="litre" constant="true"/>
+      <compartment id="local_amyloid" size="1" units="dimensionless" constant="true"/>
+      <compartment id="VWD_compartment" size="1" units="dimensionless" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="A" compartment="absorption_site" initialAmount="0" substanceUnits="milligram" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="C" compartment="central" initialConcentration="0" substanceUnits="milligram_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Cp" compartment="peripheral" initialConcentration="0" substanceUnits="milligram_per_litre" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="A_beta" compartment="local_amyloid" initialAmount="3.2" substanceUnits="dimensionless" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="VWD" compartment="VWD_compartment" initialAmount="0" substanceUnits="dimensionless" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="BGTS" compartment="VWD_compartment" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="APP" compartment="local_amyloid" initialAmount="1" substanceUnits="dimensionless" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="C83" compartment="local_amyloid" initialAmount="1" substanceUnits="dimensionless" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="C99" compartment="local_amyloid" initialAmount="1" substanceUnits="dimensionless" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="p3" compartment="local_amyloid" initialAmount="1" substanceUnits="dimensionless" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="F" value="0.494" constant="true"/>
+      <parameter id="D1" value="0.0821" constant="true"/>
+      <parameter id="KA" value="0.22" constant="true"/>
+      <parameter id="CL" value="0.336" constant="true"/>
+      <parameter id="Vc" value="3.52" constant="true"/>
+      <parameter id="Q" value="0.869" constant="true"/>
+      <parameter id="Vp" value="6.38" constant="true"/>
+      <parameter id="Dsc" value="NaN" units="milligram" constant="false"/>
+      <parameter id="Div" value="NaN" units="milligram" constant="false"/>
+      <parameter id="alpha_removal" value="0.000126" constant="true"/>
+      <parameter id="k_repair" value="0.0124" constant="true"/>
+      <parameter id="A_beta0" value="3.2" constant="true"/>
+      <parameter id="VWD0" value="0" constant="true"/>
+      <parameter id="BGTS_max" value="60" constant="true"/>
+      <parameter id="EG50" value="1" constant="true"/>
+      <parameter id="pow" value="3.72" constant="true"/>
+      <parameter id="vr0" value="1" constant="true"/>
+      <parameter id="Vm1" value="1.1" constant="true"/>
+      <parameter id="Vm2" value="0.153" constant="true"/>
+      <parameter id="Vm3" value="14.6" constant="true"/>
+      <parameter id="Vm4" value="1" constant="true"/>
+      <parameter id="Vm5" value="0.0223" constant="true"/>
+      <parameter id="Km1" value="0.0186" constant="true"/>
+      <parameter id="Km2" value="1.64" constant="true"/>
+      <parameter id="Km3" value="28.8" constant="true"/>
+      <parameter id="Km4" value="0.915" constant="true"/>
+      <parameter id="Km5" value="0.0672" constant="true"/>
+      <parameter id="APP0" value="1" constant="true"/>
+      <parameter id="C83_0" value="1" constant="true"/>
+      <parameter id="C99_0" value="1" constant="true"/>
+      <parameter id="p3_0" value="1" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="Dsc">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn type="integer"> 0 </cn>
+              <apply>
+                <gt/>
+                <ci> BGTS </ci>
+                <cn type="integer"> 4 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <piecewise>
+                <piece>
+                  <cn type="integer"> 450 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 0 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 0 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 450 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 28 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 28 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 900 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 56 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 56 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 900 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 84 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 84 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 112 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 112 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 140 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 140 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 168 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 168 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 196 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 196 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 224 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 224 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 252 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 252 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 280 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 280 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 308 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 308 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 336 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 336 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 364 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 364 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 392 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 392 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 420 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 420 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 448 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 448 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 476 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 476 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 504 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 504 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 532 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 532 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 560 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 560 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 588 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 588 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 616 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 616 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 644 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 644 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 672 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 672 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 700 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 700 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 728 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 728 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 756 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 756 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 784 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 784 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 812 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 812 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <piece>
+                  <cn type="integer"> 1200 </cn>
+                  <apply>
+                    <and/>
+                    <apply>
+                      <geq/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <cn type="integer"> 840 </cn>
+                    </apply>
+                    <apply>
+                      <lt/>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                      <apply>
+                        <plus/>
+                        <cn type="integer"> 840 </cn>
+                        <ci> D1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </piece>
+                <otherwise>
+                  <cn type="integer"> 0 </cn>
+                </otherwise>
+              </piecewise>
+            </otherwise>
+          </piecewise>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Div">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 0 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 0 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 28 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 28 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 56 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 56 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 84 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 84 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 112 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 112 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 140 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 140 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 168 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 168 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 196 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 196 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 224 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 224 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 252 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 252 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 280 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 280 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 308 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 308 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 336 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 336 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 364 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 364 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 392 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 392 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 420 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 420 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 448 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 448 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 476 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 476 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 504 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 504 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 532 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 532 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 560 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 560 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 588 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 588 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 616 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 616 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 644 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 644 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 672 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 672 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 700 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 700 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 728 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 728 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 756 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 756 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 784 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 784 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 812 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 812 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <cn> 0 </cn>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn> 840 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <apply>
+                    <plus/>
+                    <cn> 840 </cn>
+                    <cn> 0.001 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn type="integer"> 0 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="BGTS">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> BGTS_max </ci>
+              <apply>
+                <power/>
+                <apply>
+                  <divide/>
+                  <ci> VWD </ci>
+                  <ci> EG50 </ci>
+                </apply>
+                <ci> pow </ci>
+              </apply>
+            </apply>
+            <apply>
+              <plus/>
+              <cn type="integer"> 1 </cn>
+              <apply>
+                <power/>
+                <apply>
+                  <divide/>
+                  <ci> VWD </ci>
+                  <ci> EG50 </ci>
+                </apply>
+                <ci> pow </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="absorption" reversible="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="C" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> KA </ci>
+              <ci> A </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="sc_dosing" reversible="false">
+        <listOfProducts>
+          <speciesReference species="A" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> F </ci>
+                <ci> Dsc </ci>
+              </apply>
+              <ci> D1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="iv_dosing" reversible="false">
+        <listOfProducts>
+          <speciesReference species="C" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <ci> Div </ci>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="central_to_peripheral" reversible="false">
+        <listOfReactants>
+          <speciesReference species="C" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Cp" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> Q </ci>
+              <ci> C </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="peripheral_to_central" reversible="false">
+        <listOfReactants>
+          <speciesReference species="Cp" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="C" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> Q </ci>
+              <ci> Cp </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="elimination" reversible="false">
+        <listOfReactants>
+          <speciesReference species="C" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> CL </ci>
+              <ci> C </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="amyloid_degradation" reversible="false">
+        <listOfReactants>
+          <speciesReference species="A_beta" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> alpha_removal </ci>
+              <ci> C </ci>
+              <ci> A_beta </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="vwd_production" reversible="false">
+        <listOfProducts>
+          <speciesReference species="VWD" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> alpha_removal </ci>
+              <ci> C </ci>
+              <ci> A_beta </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="vwd_degradation" reversible="false">
+        <listOfReactants>
+          <speciesReference species="VWD" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k_repair </ci>
+              <ci> VWD </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="app_production" reversible="false">
+        <listOfProducts>
+          <speciesReference species="APP" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <ci> vr0 </ci>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="app_to_c83" reversible="false">
+        <listOfReactants>
+          <speciesReference species="APP" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="C83" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> Vm1 </ci>
+                  <ci> APP </ci>
+                </apply>
+                <ci> Km1 </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <divide/>
+                  <ci> APP </ci>
+                  <ci> Km1 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> C99 </ci>
+                  <ci> Km5 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="app_to_c99" reversible="false">
+        <listOfReactants>
+          <speciesReference species="APP" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="C99" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> Vm2 </ci>
+                  <ci> APP </ci>
+                </apply>
+                <ci> Km2 </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <divide/>
+                  <ci> APP </ci>
+                  <ci> Km2 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="c83_to_p3" reversible="false">
+        <listOfReactants>
+          <speciesReference species="C83" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="p3" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> Vm3 </ci>
+                  <ci> C83 </ci>
+                </apply>
+                <ci> Km3 </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <divide/>
+                  <ci> C83 </ci>
+                  <ci> Km3 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> C99 </ci>
+                  <ci> Km4 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="c99_to_abeta" reversible="false">
+        <listOfReactants>
+          <speciesReference species="C99" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="A_beta" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> Vm4 </ci>
+                  <ci> C99 </ci>
+                </apply>
+                <ci> Km4 </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <divide/>
+                  <ci> C83 </ci>
+                  <ci> Km3 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> C99 </ci>
+                  <ci> Km4 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="c99_to_c83" reversible="false">
+        <listOfReactants>
+          <speciesReference species="C99" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="C83" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> Vm5 </ci>
+                  <ci> C99 </ci>
+                </apply>
+                <ci> Km5 </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <divide/>
+                  <ci> APP </ci>
+                  <ci> Km1 </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> C99 </ci>
+                  <ci> Km5 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

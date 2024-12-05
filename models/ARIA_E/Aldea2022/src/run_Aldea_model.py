@@ -15,8 +15,7 @@ current_file = Path(__file__).resolve()
 project_root = current_file.parent.parent.parent
 sys.path.append(str(project_root))
 
-from pk_module.pk_sbml import create_pk_model
-from Aldea2022.src.models.vwd.vwd_sbml import create_vwd_model
+
 from Aldea2022.src.models.Aldea_modular_SBML import create_master_model, save_model
 
 
@@ -113,13 +112,9 @@ def run_simulation():
     
     times = jnp.linspace(t0, t1, n_steps)
     
-    y_indexes = {
-        'A': 0, 
-        'C': 1, 
-        'Cp': 2, 
-        'A_beta': 3, 
-        'VWD': 4
-    }
+    # import from model 
+    from aldea_jax import y_indexes
+
 
     plt.figure(figsize=(12, 8))
     plt.subplots_adjust(hspace=0.5)

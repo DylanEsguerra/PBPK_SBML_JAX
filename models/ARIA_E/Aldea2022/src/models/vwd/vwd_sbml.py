@@ -48,7 +48,7 @@ def create_vwd_model(params):
 
     # Add central concentration as a parameter (will be updated from PK model)
     #central_conc = model.createParameter()
-    #central_conc.setId("central_conc")
+    #central_conc.setId("C")
     #central_conc.setValue(0.0)
     #central_conc.setConstant(False)
 
