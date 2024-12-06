@@ -116,7 +116,9 @@ The original model generates plots showing:
 
 ### Extended Aldea2022 Model
 The extended model produces additional plots:
-![Extended Model Simulation](Aldea2022/generated/figures/aldea_extended_model_simulation.png)
+![Extended Model Simulation](Aldea2022/generated/figures/aldea_extended_simulation.png)
+![Michaelis-Menten Kinetics](Aldea2022/generated/figures/mm_species.png)
+
 - Original Aldea2022 components
 - APP concentration and processing
 - C83 and C99 fragment dynamics
