@@ -42,19 +42,27 @@ def load_parameters():
         "pow": 3.72
     }
 
-    sc_doses = [
-        (0.0, 450.0),    # Day 1
-        (28.0, 450.0),   # Week 4
-        (56.0, 900.0),   # Week 8
-        (84.0, 900.0),   # Week 12
-        (112.0, 1200.0), # Week 16
-        (140.0, 1200.0), # Week 20
+    # Initialize sc_doses with zeros for all timepoints
+    total_weeks = 121
+    sc_doses = [(week * 7.0, 0.0) for week in range(total_weeks)]
+    
+    # Update specific doses according to the protocol
+    dose_schedule = [
+        (0, 450.0),     # Day 1
+        (4, 450.0),     # Week 4
+        (8, 900.0),     # Week 8
+        (12, 900.0),    # Week 12
+        (16, 1200.0),   # Week 16
+        (20, 1200.0),   # Week 20
     ]
     
-    # Add maintenance doses (1200 mg) for 120 weeks
-    for week in range(24, 121, 4):  # Changed from 101 to 121 to include full 120 weeks
-        day = week * 7.0
-        sc_doses.append((day, 1200.0))
+    # Apply initial doses
+    for week, dose in dose_schedule:
+        sc_doses[week] = (week * 7.0, dose)
+    
+    # Apply maintenance doses (1200 mg) every 4 weeks from week 24 to week 100
+    for week in range(24, 101, 4):
+        sc_doses[week] = (week * 7.0, 1200.0)
     
     iv_doses = [
         (0.0, 0.0),
@@ -166,8 +174,8 @@ def run_simulation():
              label='Local Amyloid (Aβ)', 
              color='limegreen',
              linewidth=2)
-    plt.ylim(0, 5)
-    plt.yticks([0, 2.5, 5])
+    #plt.ylim(0, 5)
+    #plt.yticks([0, 2.5, 5])
     plt.xlabel('')  # Remove x-axis label
     plt.ylabel('Local Amyloid', fontsize=14)
     #plt.title('Local Amyloid', fontsize=12, pad=20)

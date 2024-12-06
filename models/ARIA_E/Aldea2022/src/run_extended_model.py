@@ -45,7 +45,7 @@ def load_parameters():
     Vm_scale = 1.0 #82.3529 * 4329.8
     
     ab_params = {
-        "vr0": 1.0,       # Constant production rate of APP
+        "vr0": 0.8,       # Constant production rate of APP
         
         # Maximum rates (Vm) with scaling
         "Vm1": 1.10 * Vm_scale,    # APP -> C83
@@ -69,19 +69,28 @@ def load_parameters():
         "A_beta0": 3.2
     }
 
-    # Dosing schedules (unchanged)
-    sc_doses = [
-        (0.0, 450.0),    # Day 1
-        (28.0, 450.0),   # Week 4
-        (56.0, 900.0),   # Week 8
-        (84.0, 900.0),   # Week 12
-        (112.0, 1200.0), # Week 16
-        (140.0, 1200.0), # Week 20
+    # Initialize sc_doses with zeros for all timepoints
+    total_weeks = 121
+    sc_doses = [(week * 7.0, 0.0) for week in range(total_weeks)]
+    
+    # Update specific doses according to the protocol
+    dose_schedule = [
+        (0, 450.0),     # Day 1
+        (4, 450.0),     # Week 4
+        (8, 900.0),     # Week 8
+        (12, 900.0),    # Week 12
+        (16, 1200.0),   # Week 16
+        (20, 1200.0),   # Week 20
     ]
     
-    for week in range(24, 121, 4):
-        day = week * 7.0
-        sc_doses.append((day, 1200.0))
+    # Apply initial doses
+    for week, dose in dose_schedule:
+        sc_doses[week] = (week * 7.0, dose)
+    
+    # Apply maintenance doses (1200 mg) every 4 weeks from week 24 to week 100
+    for week in range(24, 101, 4):
+        sc_doses[week] = (week * 7.0, 1200.0)
+    
     
     iv_doses = [(0.0, 0.0), (28.0, 0.0), (56.0, 0.0)]
     for week in range(12, 121, 4):
